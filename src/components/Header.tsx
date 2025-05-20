@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 
 import Container from './Container';
-import { siteDetails } from '@/data/siteDetails';
+// import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
 
 const Header: React.FC = () => {
