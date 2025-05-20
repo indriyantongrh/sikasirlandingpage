@@ -4,66 +4,66 @@ import { IBenefit } from "@/types"
 
 export const benefits: IBenefit[] = [
     {
-        title: "Smart Budgeting",
-        description: "Take the guesswork out of managing your money. Our AI-powered budgeting tool adapts to your lifestyle and helps you stay on track.",
+        title: "Solusi Cerdas untuk Usaha Laundry",
+        description: "Kelola laundry tanpa ribet! Aplikasi kasir khusus laundry kami dirancang untuk usaha rumahan hingga profesional—lebih hemat waktu, minim kesalahan.",
         bullets: [
             {
-                title: "Intelligent Categorization",
-                description: "Automatically sorts your transactions for crystal-clear insights.",
+                title: "Pencatatan Instan & Otomatis",
+                description: "Catat transaksi cukup sekali klik, tanpa perlu repot tulis manual.",
                 icon: <FiBarChart2 size={26} />
             },
             {
-                title: "Customizable Goals",
-                description: "Set and track financial objectives that matter to you.",
+                title: "Struk Digital via WhatsApp",
+                description: "Langsung kirim struk ke pelanggan, bikin pelayanan lebih profesional.",
                 icon: <FiTarget size={26} />
             },
             {
-                title: "Predictive Analysis",
-                description: "Get ahead of your finances with spending forecasts and alerts.",
+                title: "Cocok untuk Semua Skala Usaha",
+                description: "Mulai dari laundry rumahan hingga cabang banyak, semua bisa pakai.",
                 icon: <FiTrendingUp size={26} />
             }
         ],
         imageSrc: "/images/mockup-1.webp"
     },
     {
-        title: "Seamless Investing",
-        description: "Start building wealth today, no financial degree required. Finwise makes investing accessible and straightforward.",
+        title: "Pantau Keuangan, Tanpa Bingung",
+        description: "Laporan lengkap dan real-time langsung dari aplikasi—bantu kamu ambil keputusan lebih cepat dan tepat.",
         bullets: [
             {
-                title: "Micro-Investing",
-                description: "Begin with as little as $1 and watch your money grow.",
+                title: "Laporan Harian & Bulanan Otomatis",
+                description: "Omset, profit, dan transaksi tercatat rapi tanpa perlu Excel.",
                 icon: <FiDollarSign size={26} />
             },
             {
-                title: "Expert Portfolios",
-                description: "Choose from investment strategies tailored to your risk tolerance.",
+                title: "Cek Arus Kas & Piutang",
+                description: "Pantau utang pelanggan & pengeluaran harian dengan mudah.",
                 icon: <FiBriefcase size={26} />
             },
             {
-                title: "Real-Time Performance",
-                description: "Track your investments with easy-to-understand metrics and visuals.",
+                title: "Dashboard dari HP Kapan Saja",
+                description: "Lihat performa usaha cukup lewat ponsel—tidak perlu ke lokasi.",
                 icon: <FiPieChart size={26} />
             }
         ],
         imageSrc: "/images/mockup-2.webp"
     },
     {
-        title: "Bank-Grade Security",
-        description: "Your financial data deserves the best protection. Rest easy knowing Finwise employs cutting-edge security measures.",
+        title: "Aman, Andal, dan Didukung Tim Profesional",
+        description: "Tenang jalani bisnis, data kamu aman dan tim kami selalu siap bantu.",
         bullets: [
             {
-                title: "Military-Grade Encryption",
-                description: "Your information is safeguarded with the highest level of encryption.",
+                title: "Login Khusus Pemilik & Kasir",
+                description: "Bisa bedakan akses pemilik dan karyawan, semua lebih aman.",
                 icon: <FiLock size={26} />
             },
             {
-                title: "Biometric Authentication",
-                description: "Access your account securely with fingerprint or facial recognition.",
+                title: "Data Tersimpan di Cloud",
+                description: "Tidak takut data hilang. Semua tersimpan otomatis dan bisa dipulihkan.",
                 icon: <FiUser size={26} />
             },
             {
-                title: "Real-Time Fraud Detection",
-                description: "Our system constantly monitors for suspicious activity to keep your money safe.",
+                title: "Bantuan Cepat via WhatsApp",
+                description: "Tim support siap bantu kamu kapan saja saat butuh.",
                 icon: <FiShield size={26} />
             }
         ],

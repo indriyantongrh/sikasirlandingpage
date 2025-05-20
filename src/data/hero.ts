@@ -1,5 +1,5 @@
 export const heroDetails = {
-    heading: 'Smart, Secure, Simple Financial Management',
-    subheading: 'From effortless budgeting to real-time investment insights, Finwise puts you in control of your money like never before',
+    heading: 'Kelola Bisnis Laundry Lebih Mudah, Cepat, & Profesional',
+    subheading: 'SIKASIR LAUNDRY bantu operasional laundry kamu — dari pencatatan transaksi, pengelolaan karyawan, pelanggan, hingga stok habis. Semua dalam satu aplikasi.',
     centerImageSrc: '/images/hero-mockup.webp',
 }
