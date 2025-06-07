@@ -18,7 +18,6 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   useTheme,
   useMediaQuery,
