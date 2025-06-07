@@ -80,7 +80,6 @@ const fetchLaundryStatusFromDB = async (
 ): Promise<LaundryStatus | null> => {
   console.log(`Mencari status laundry untuk kode: ${transactionCode}`);
   // await new Promise(resolve => setTimeout(resolve, 1000)); // Simulasi delay
-
   if (transactionCode === 'LDRY123') {
     return {
       transactionId: 'LDRY123',
