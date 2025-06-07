@@ -371,8 +371,6 @@
 //   );
 // }
 
-
-
 "use client";
 
 import React, { useEffect, useState, Suspense } from 'react';
@@ -439,7 +437,7 @@ interface LaundryDetails {
   estimatedFinishDate?: string;
 }
 
-// --- PERBAIKAN: Menambahkan interface untuk item di dalam order ---
+// --- Menambahkan interface untuk item di dalam order ---
 interface OrderItem {
   namaLayanan: string;
   kuantitas: number;
@@ -513,7 +511,6 @@ const fetchLaundryStatusFromDB = async (
     details: {
       orderId: data.nomorOrder,
       customerName: data.namaPelanggan,
-      // --- PERBAIKAN: Menggunakan interface OrderItem sebagai ganti 'any' ---
       itemsDescription: (data.items as OrderItem[]).map(item => `${item.namaLayanan} (${item.kuantitas} ${item.satuan})`).join(', '),
       totalAmount: data.totalHarga,
       paymentStatus: data.statusPembayaran,
@@ -684,7 +681,8 @@ function LaundryStatusDisplay() {
               Detail Laundry:
             </Typography>
             <Grid container spacing={isMobile ? 2 : 3}>
-              <Grid xs={12} md={6}>
+              {/* PERBAIKAN: Menambahkan prop 'item' kembali */}
+              <Grid item xs={12} md={6}>
                 <Paper variant="outlined" sx={{ p: 2, height: '100%', borderRadius: '8px' }}>
                   <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>Info Pelanggan & Layanan:</Typography>
                   <List dense disablePadding>
@@ -699,7 +697,8 @@ function LaundryStatusDisplay() {
                   </List>
                 </Paper>
               </Grid>
-              <Grid xs={12} md={6}>
+              {/* PERBAIKAN: Menambahkan prop 'item' kembali */}
+              <Grid item xs={12} md={6}>
                 <Paper variant="outlined" sx={{ p: 2, height: '100%', borderRadius: '8px' }}>
                   <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>Info Pembayaran:</Typography>
                   <List dense disablePadding>
