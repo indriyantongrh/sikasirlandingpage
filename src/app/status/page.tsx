@@ -1,4 +1,4 @@
-// app/status/page.tsx
+/ app/status/page.tsx
 "use client";
 
 import React, { useEffect, useState, Suspense } from 'react';
@@ -23,15 +23,14 @@ import {
   useMediaQuery,
 } from '@mui/material';
 // Ikon yang relevan dengan laundry
-import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService'; // Untuk judul utama
+import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import DryCleaningIcon from '@mui/icons-material/DryCleaning'; // Untuk proses cuci/setrika
-import CheckroomIcon from '@mui/icons-material/Checkroom'; // Pakaian siap
-// import LocalShippingIcon from '@mui/icons-material/LocalShipping'; // Untuk pengantaran
+import DryCleaningIcon from '@mui/icons-material/DryCleaning';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'; // Untuk ID Transaksi
-import InventoryIcon from '@mui/icons-material/Inventory'; // Fallback atau item
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 // Tipe data untuk langkah laundry
 interface LaundryStep {
@@ -42,10 +41,10 @@ interface LaundryStep {
 
 // Tipe data untuk detail laundry
 interface LaundryDetails {
-  orderId: string; // Bisa juga disebut Nomor Nota
+  orderId: string;
   customerName: string;
   serviceType: 'Cuci Kering Setrika' | 'Cuci Kering Lipat' | 'Setrika Saja' | 'Layanan Kilat';
-  itemsDescription?: string; // Deskripsi umum item, mis. "3 Kemeja, 2 Celana"
+  itemsDescription?: string;
   weightKg?: number;
   totalAmount: number;
   paymentStatus: 'Lunas' | 'Belum Lunas';
@@ -54,8 +53,8 @@ interface LaundryDetails {
 
 // Tipe data untuk status laundry keseluruhan
 interface LaundryStatus {
-  transactionId: string; // ID unik untuk tracking laundry
-  currentStep: number; // index dari 'steps'
+  transactionId: string;
+  currentStep: number;
   isCompleted: boolean;
   isCancelled?: boolean;
   cancellationReason?: string;
@@ -78,12 +77,13 @@ const fetchLaundryStatusFromDB = async (
   transactionCode: string
 ): Promise<LaundryStatus | null> => {
   console.log(`Mencari status laundry untuk kode: ${transactionCode}`);
-  // await new Promise(resolve => setTimeout(resolve, 1000)); // Simulasi delay
+  
   if (transactionCode === 'LDRY123') {
     return {
       transactionId: 'LDRY123',
-      currentStep: 2, // 'Proses Pengeringan'
+      currentStep: 2,
       isCompleted: false,
+      isCancelled: false,
       steps: [
         { label: LAUNDRY_PROGRESS_STEPS[0], timestamp: '2025-05-28 09:00:00', notes: "Estimasi selesai 2 hari." },
         { label: LAUNDRY_PROGRESS_STEPS[1], timestamp: '2025-05-28 11:30:00' },
@@ -93,21 +93,17 @@ const fetchLaundryStatusFromDB = async (
         { label: LAUNDRY_PROGRESS_STEPS[5] },
       ],
       details: {
-        orderId: 'NOTA-001',
-        customerName: 'Ibu Anisa',
-        serviceType: 'Cuci Kering Setrika',
-        itemsDescription: 'Pakaian sehari-hari campur',
-        weightKg: 5.2,
-        totalAmount: 52000,
-        paymentStatus: 'Lunas',
-        estimatedFinishDate: '30 Mei 2025, Sore',
+        orderId: 'NOTA-001', customerName: 'Ibu Anisa', serviceType: 'Cuci Kering Setrika',
+        itemsDescription: 'Pakaian sehari-hari campur', weightKg: 5.2, totalAmount: 52000,
+        paymentStatus: 'Lunas', estimatedFinishDate: '30 Mei 2025, Sore',
       },
     };
   } else if (transactionCode === 'LDRY456') {
     return {
       transactionId: 'LDRY456',
-      currentStep: 5, // 'Telah Diambil/Diantar'
+      currentStep: 5,
       isCompleted: true,
+      isCancelled: false,
       steps: [
         { label: LAUNDRY_PROGRESS_STEPS[0], timestamp: '2025-05-26 14:00:00' },
         { label: LAUNDRY_PROGRESS_STEPS[1], timestamp: '2025-05-26 16:00:00' },
@@ -117,18 +113,14 @@ const fetchLaundryStatusFromDB = async (
         { label: LAUNDRY_PROGRESS_STEPS[5], timestamp: '2025-05-28 10:00:00', notes: "Telah diambil oleh pelanggan." },
       ],
       details: {
-        orderId: 'NOTA-002',
-        customerName: 'Bapak Rudi',
-        serviceType: 'Layanan Kilat',
-        itemsDescription: '2 Jas, 1 Gaun',
-        totalAmount: 75000,
-        paymentStatus: 'Lunas',
+        orderId: 'NOTA-002', customerName: 'Bapak Rudi', serviceType: 'Layanan Kilat',
+        itemsDescription: '2 Jas, 1 Gaun', totalAmount: 75000, paymentStatus: 'Lunas',
       },
     };
   } else if (transactionCode === 'LDRY789') {
      return {
       transactionId: 'LDRY789',
-      currentStep: 0, // 'Pakaian Diterima'
+      currentStep: 0,
       isCompleted: false,
       isCancelled: true,
       cancellationReason: 'Pelanggan meminta pembatalan sebelum proses cuci.',
@@ -141,12 +133,8 @@ const fetchLaundryStatusFromDB = async (
         { label: LAUNDRY_PROGRESS_STEPS[5] },
       ],
       details: {
-        orderId: 'NOTA-003',
-        customerName: 'Ibu Citra',
-        serviceType: 'Setrika Saja',
-        itemsDescription: '1 keranjang pakaian',
-        totalAmount: 30000,
-        paymentStatus: 'Belum Lunas',
+        orderId: 'NOTA-003', customerName: 'Ibu Citra', serviceType: 'Setrika Saja',
+        itemsDescription: '1 keranjang pakaian', totalAmount: 30000, paymentStatus: 'Belum Lunas',
       },
     };
   }
@@ -156,7 +144,7 @@ const fetchLaundryStatusFromDB = async (
 
 function LaundryStatusDisplay() {
   const searchParams = useSearchParams();
-  const transactionCode = searchParams.get('laundry'); // Ganti parameter ke 'laundry' atau biarkan 'transaksi'
+  const transactionCode = searchParams.get('laundry');
 
   const [statusData, setStatusData] = useState<LaundryStatus | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -192,7 +180,7 @@ function LaundryStatusDisplay() {
 
   if (isLoading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 160px)', pt: { xs: 10, md: 14 } }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 160px)' }}>
         <CircularProgress />
         <Typography variant="h6" sx={{ ml: 2 }}>
           Memuat status laundry...
@@ -220,21 +208,19 @@ function LaundryStatusDisplay() {
   }
 
   const getStepIcon = (stepIndex: number, currentStep: number, isCompleted: boolean, isCancelled?: boolean) => {
-    if (stepIndex < currentStep || (isCompleted && stepIndex === currentStep && !isCancelled)) {
+    if (stepIndex < currentStep || (isCompleted && stepIndex <= currentStep && !isCancelled)) {
       return <CheckCircleIcon sx={{ color: 'success.main' }} />;
     }
     if (stepIndex === currentStep && isCancelled) {
         return <ErrorOutlineIcon sx={{ color: 'error.main' }} />;
     }
     if (stepIndex === currentStep && !isCompleted && !isCancelled) {
-      // Ikon spesifik untuk langkah laundry yang sedang berjalan
       if (LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Proses Pencucian' || LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Proses Setrika') {
         return <DryCleaningIcon sx={{ color: 'primary.main', animation: 'spin 2s linear infinite' }} />;
       }
       return <HourglassEmptyIcon sx={{ color: 'primary.main', animation: 'spin 2s linear infinite' }} />;
     }
-    // Ikon untuk langkah mendatang atau setelah pembatalan
-     if (LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Selesai & Siap Diambil' || LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Telah Diambil/Diantar') {
+    if (LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Selesai & Siap Diambil' || LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Telah Diambil/Diantar') {
         return <CheckroomIcon sx={{ color: theme.palette.grey[400]}}/>;
     }
     return <InventoryIcon sx={{ color: theme.palette.grey[400]}} />;
@@ -250,8 +236,8 @@ function LaundryStatusDisplay() {
             </Typography>
         </Box>
         <Chip
-          label={`No. Nota: ${statusData.transactionId}`} // Atau No. Transaksi / Order
-          color="secondary" // Ubah warna chip jika mau
+          label={`No. Nota: ${statusData.transactionId}`}
+          color="secondary"
           variant="outlined"
           icon={<ReceiptLongIcon />}
           sx={{ mb: 3, fontSize: isMobile? '0.875rem' : '1rem', fontWeight: 500 }}
@@ -278,12 +264,8 @@ function LaundryStatusDisplay() {
           alternativeLabel={!isMobile}
           sx={{ mb: 4,
             ...(isMobile && {
-                '& .MuiStepConnector-line': {
-                    minHeight: '45px',
-                },
-                 '& .MuiStepLabel-labelContainer': { // Agar note tidak terlalu mepet ikon
-                    marginLeft: '8px',
-                }
+                '& .MuiStepConnector-line': { minHeight: '45px' },
+                 '& .MuiStepLabel-labelContainer': { marginLeft: '8px' }
             })
           }}
         >
@@ -303,15 +285,7 @@ function LaundryStatusDisplay() {
                   </Typography>
                 )}
                 {step.notes && (
-                  <Typography
-                    variant="caption"
-                    display="block"
-                    sx={{
-                        color: (statusData.isCancelled && index === statusData.currentStep) ? 'error.dark' : 'info.dark',
-                        mt: 0.5,
-                        fontStyle: 'italic'
-                    }}
-                  >
+                  <Typography variant="caption" display="block" sx={{ color: (statusData.isCancelled && index === statusData.currentStep) ? 'error.dark' : 'info.dark', mt: 0.5, fontStyle: 'italic' }}>
                     {step.notes}
                   </Typography>
                 )}
@@ -327,7 +301,8 @@ function LaundryStatusDisplay() {
               Detail Laundry:
             </Typography>
             <Grid container spacing={isMobile ? 2 : 3}>
-              <Grid item xs={12} md={6}>
+              {/* PERBAIKAN: Hapus prop 'item' */}
+              <Grid xs={12} md={6}>
                 <Paper variant="outlined" sx={{ p: 2, height: '100%', borderRadius: '8px' }}>
                   <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>Info Pelanggan & Layanan:</Typography>
                   <List dense disablePadding>
@@ -350,7 +325,8 @@ function LaundryStatusDisplay() {
                   </List>
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={6}>
+              {/* PERBAIKAN: Hapus prop 'item' */}
+              <Grid xs={12} md={6}>
                 <Paper variant="outlined" sx={{ p: 2, height: '100%', borderRadius: '8px' }}>
                   <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>Info Pembayaran:</Typography>
                   <List dense disablePadding>
@@ -388,10 +364,10 @@ function LaundryStatusDisplay() {
   );
 }
 
-export default function StatusLaundryPage() { // Ganti nama Halaman utama juga
+export default function StatusLaundryPage() {
   return (
     <Suspense fallback={
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 160px)', pt: { xs: 10, md: 14 } }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 160px)' }}>
         <CircularProgress />
         <Typography variant="h6" sx={{ ml: 2 }}>
           Memuat...
@@ -401,4 +377,3 @@ export default function StatusLaundryPage() { // Ganti nama Halaman utama juga
       <LaundryStatusDisplay />
     </Suspense>
   );
-}
