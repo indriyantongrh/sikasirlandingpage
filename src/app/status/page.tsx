@@ -1,4 +1,3 @@
-/ app/status/page.tsx
 "use client";
 
 import React, { useEffect, useState, Suspense } from 'react';
@@ -270,7 +269,7 @@ function LaundryStatusDisplay() {
           }}
         >
           {statusData.steps.map((step, index) => (
-            <Step key={step.label} completed={index < statusData.currentStep || (statusData.isCompleted && index <= statusData.currentStep && !statusData.isCancelled)}>
+            <Step key={step.label} completed={index < statusData.currentStep || (statusData.isCompleted && index <= statusData.currentStep && !isCancelled)}>
               <StepLabel
                 StepIconComponent={() => getStepIcon(index, statusData.currentStep, statusData.isCompleted, statusData.isCancelled && index === statusData.currentStep)}
                 sx={isMobile ? { textAlign: 'left', alignItems: 'flex-start' } : {}}
@@ -301,7 +300,6 @@ function LaundryStatusDisplay() {
               Detail Laundry:
             </Typography>
             <Grid container spacing={isMobile ? 2 : 3}>
-              {/* PERBAIKAN: Hapus prop 'item' */}
               <Grid xs={12} md={6}>
                 <Paper variant="outlined" sx={{ p: 2, height: '100%', borderRadius: '8px' }}>
                   <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>Info Pelanggan & Layanan:</Typography>
@@ -325,7 +323,6 @@ function LaundryStatusDisplay() {
                   </List>
                 </Paper>
               </Grid>
-              {/* PERBAIKAN: Hapus prop 'item' */}
               <Grid xs={12} md={6}>
                 <Paper variant="outlined" sx={{ p: 2, height: '100%', borderRadius: '8px' }}>
                   <Typography variant="subtitle1" fontWeight="bold" color="primary.main" gutterBottom>Info Pembayaran:</Typography>
@@ -377,3 +374,4 @@ export default function StatusLaundryPage() {
       <LaundryStatusDisplay />
     </Suspense>
   );
+}
