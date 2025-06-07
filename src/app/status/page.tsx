@@ -269,7 +269,7 @@ function LaundryStatusDisplay() {
           }}
         >
           {statusData.steps.map((step, index) => (
-            <Step key={step.label} completed={index < statusData.currentStep || (statusData.isCompleted && index <= statusData.currentStep && !isCancelled)}>
+            <Step key={step.label} completed={index < statusData.currentStep || (statusData.isCompleted && index <= statusData.currentStep && !statusData.isCancelled)}>
               <StepLabel
                 StepIconComponent={() => getStepIcon(index, statusData.currentStep, statusData.isCompleted, statusData.isCancelled && index === statusData.currentStep)}
                 sx={isMobile ? { textAlign: 'left', alignItems: 'flex-start' } : {}}
