@@ -21,7 +21,6 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-// Ikon yang relevan dengan laundry
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
@@ -30,6 +29,26 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+
+// --- Konfigurasi dan Inisialisasi Firebase ---
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore, collection, query, where, getDocs, limit, Timestamp } from "firebase/firestore";
+
+// TODO: GANTI DENGAN KREDENSIAL PROYEK FIREBASE ANDA
+const firebaseConfig = {
+  apiKey: "AIzaSyD9sgDL4BXnCqK1CLb53ENCOSD8FjpsTXU",
+  authDomain: "kasirlaundryapps.firebaseapp.com",
+  projectId: "kasirlaundryapps",
+  // storageBucket: "your-project-id.appspot.com",
+  // messagingSenderId: "123456789012",
+  // appId: "1:123456789012:web:xxxxxxxxxxxxxxxxxxxxxx"
+};
+
+// Inisialisasi Firebase App dan Firestore
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const db = getFirestore(app);
+// --- Akhir Konfigurasi Firebase ---
+
 
 // Tipe data untuk langkah laundry
 interface LaundryStep {
@@ -42,9 +61,7 @@ interface LaundryStep {
 interface LaundryDetails {
   orderId: string;
   customerName: string;
-  serviceType: 'Cuci Kering Setrika' | 'Cuci Kering Lipat' | 'Setrika Saja' | 'Layanan Kilat';
   itemsDescription?: string;
-  weightKg?: number;
   totalAmount: number;
   paymentStatus: 'Lunas' | 'Belum Lunas';
   estimatedFinishDate?: string;
@@ -61,85 +78,71 @@ interface LaundryStatus {
   details?: LaundryDetails;
 }
 
-// Daftar langkah-langkah progres laundry
+// Daftar langkah-langkah progres laundry (sesuaikan dengan nilai di Firestore)
 const LAUNDRY_PROGRESS_STEPS: string[] = [
-  'Pakaian Diterima',
+  'Baru',
   'Proses Pencucian',
   'Proses Pengeringan',
   'Proses Setrika',
   'Selesai & Siap Diambil',
-  'Telah Diambil/Diantar',
+  'Telah Diambil',
 ];
 
-// --- SIMULASI FUNGSI UNTUK FETCH DATA DARI DATABASE ---
+// --- Fungsi untuk Fetch Data dari Firestore ---
 const fetchLaundryStatusFromDB = async (
   transactionCode: string
 ): Promise<LaundryStatus | null> => {
-  console.log(`Mencari status laundry untuk kode: ${transactionCode}`);
-  
-  if (transactionCode === 'LDRY123') {
-    return {
-      transactionId: 'LDRY123',
-      currentStep: 2,
-      isCompleted: false,
-      isCancelled: false,
-      steps: [
-        { label: LAUNDRY_PROGRESS_STEPS[0], timestamp: '2025-05-28 09:00:00', notes: "Estimasi selesai 2 hari." },
-        { label: LAUNDRY_PROGRESS_STEPS[1], timestamp: '2025-05-28 11:30:00' },
-        { label: LAUNDRY_PROGRESS_STEPS[2], notes: "Sedang dikeringkan mesin." },
-        { label: LAUNDRY_PROGRESS_STEPS[3] },
-        { label: LAUNDRY_PROGRESS_STEPS[4] },
-        { label: LAUNDRY_PROGRESS_STEPS[5] },
-      ],
-      details: {
-        orderId: 'NOTA-001', customerName: 'Ibu Anisa', serviceType: 'Cuci Kering Setrika',
-        itemsDescription: 'Pakaian sehari-hari campur', weightKg: 5.2, totalAmount: 52000,
-        paymentStatus: 'Lunas', estimatedFinishDate: '30 Mei 2025, Sore',
-      },
-    };
-  } else if (transactionCode === 'LDRY456') {
-    return {
-      transactionId: 'LDRY456',
-      currentStep: 5,
-      isCompleted: true,
-      isCancelled: false,
-      steps: [
-        { label: LAUNDRY_PROGRESS_STEPS[0], timestamp: '2025-05-26 14:00:00' },
-        { label: LAUNDRY_PROGRESS_STEPS[1], timestamp: '2025-05-26 16:00:00' },
-        { label: LAUNDRY_PROGRESS_STEPS[2], timestamp: '2025-05-27 09:00:00' },
-        { label: LAUNDRY_PROGRESS_STEPS[3], timestamp: '2025-05-27 13:00:00' },
-        { label: LAUNDRY_PROGRESS_STEPS[4], timestamp: '2025-05-27 17:00:00', notes: "Siap diambil di rak A3" },
-        { label: LAUNDRY_PROGRESS_STEPS[5], timestamp: '2025-05-28 10:00:00', notes: "Telah diambil oleh pelanggan." },
-      ],
-      details: {
-        orderId: 'NOTA-002', customerName: 'Bapak Rudi', serviceType: 'Layanan Kilat',
-        itemsDescription: '2 Jas, 1 Gaun', totalAmount: 75000, paymentStatus: 'Lunas',
-      },
-    };
-  } else if (transactionCode === 'LDRY789') {
-     return {
-      transactionId: 'LDRY789',
-      currentStep: 0,
-      isCompleted: false,
-      isCancelled: true,
-      cancellationReason: 'Pelanggan meminta pembatalan sebelum proses cuci.',
-      steps: [
-        { label: LAUNDRY_PROGRESS_STEPS[0], timestamp: '2025-05-28 08:00:00', notes: "Dibatalkan atas permintaan." },
-        { label: LAUNDRY_PROGRESS_STEPS[1] },
-        { label: LAUNDRY_PROGRESS_STEPS[2] },
-        { label: LAUNDRY_PROGRESS_STEPS[3] },
-        { label: LAUNDRY_PROGRESS_STEPS[4] },
-        { label: LAUNDRY_PROGRESS_STEPS[5] },
-      ],
-      details: {
-        orderId: 'NOTA-003', customerName: 'Ibu Citra', serviceType: 'Setrika Saja',
-        itemsDescription: '1 keranjang pakaian', totalAmount: 30000, paymentStatus: 'Belum Lunas',
-      },
-    };
+  console.log(`Mencari di Firestore untuk nomorOrder: ${transactionCode}`);
+
+  const q = query(
+    collection(db, "orders"), // Nama koleksi di Firestore
+    where("nomorOrder", "==", transactionCode), // Nama field untuk nomor order
+    limit(1)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+    console.log("Dokumen tidak ditemukan.");
+    return null;
   }
-  return null;
+
+  const docSnap = querySnapshot.docs[0];
+  const data = docSnap.data();
+
+  const statusOrder = data.statusOrder || 'Baru';
+  const currentStepIndex = LAUNDRY_PROGRESS_STEPS.indexOf(statusOrder);
+
+  const steps: LaundryStep[] = LAUNDRY_PROGRESS_STEPS.map((stepLabel, index) => {
+      if (currentStepIndex > index) {
+        return { label: stepLabel, timestamp: (data.createdAt as Timestamp).toDate().toISOString() };
+      }
+      if (currentStepIndex === index) {
+        return { label: stepLabel, timestamp: (data.updatedAt as Timestamp).toDate().toISOString() };
+      }
+      return { label: stepLabel };
+  });
+
+  const laundryStatus: LaundryStatus = {
+    transactionId: data.nomorOrder,
+    currentStep: currentStepIndex !== -1 ? currentStepIndex : 0,
+    isCompleted: data.statusOrder === 'Telah Diambil',
+    isCancelled: data.statusOrder === 'Dibatalkan',
+    cancellationReason: data.cancellationReason,
+    steps: steps,
+    details: {
+      orderId: data.nomorOrder,
+      customerName: data.namaPelanggan,
+      itemsDescription: (data.items as any[]).map(item => `${item.namaLayanan} (${item.kuantitas} ${item.satuan})`).join(', '),
+      totalAmount: data.totalHarga,
+      paymentStatus: data.statusPembayaran,
+      estimatedFinishDate: data.estimasiSelesai ? (data.estimasiSelesai as Timestamp).toDate().toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : "Belum ditentukan",
+    }
+  };
+
+  return laundryStatus;
 };
-// --- AKHIR SIMULASI ---
+// --- Akhir Fungsi Firestore ---
 
 function LaundryStatusDisplay() {
   const searchParams = useSearchParams();
@@ -153,15 +156,16 @@ function LaundryStatusDisplay() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    if (transactionCode) {
+    const transactionId = transactionCode?.toUpperCase();
+    if (transactionId) {
       setIsLoading(true);
       setError(null);
-      fetchLaundryStatusFromDB(transactionCode.toUpperCase())
+      fetchLaundryStatusFromDB(transactionId)
         .then((data) => {
           if (data) {
             setStatusData(data);
           } else {
-            setError(`Status untuk kode laundry "${transactionCode.toUpperCase()}" tidak ditemukan.`);
+            setError(`Status untuk kode laundry "${transactionId}" tidak ditemukan.`);
           }
         })
         .catch((err) => {
@@ -176,7 +180,7 @@ function LaundryStatusDisplay() {
       setIsLoading(false);
     }
   }, [transactionCode]);
-
+  
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 160px)' }}>
@@ -219,7 +223,7 @@ function LaundryStatusDisplay() {
       }
       return <HourglassEmptyIcon sx={{ color: 'primary.main', animation: 'spin 2s linear infinite' }} />;
     }
-    if (LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Selesai & Siap Diambil' || LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Telah Diambil/Diantar') {
+    if (LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Selesai & Siap Diambil' || LAUNDRY_PROGRESS_STEPS[stepIndex] === 'Telah Diambil') {
         return <CheckroomIcon sx={{ color: theme.palette.grey[400]}}/>;
     }
     return <InventoryIcon sx={{ color: theme.palette.grey[400]}} />;
@@ -252,7 +256,6 @@ function LaundryStatusDisplay() {
                 Perkiraan Selesai: <strong>{statusData.details.estimatedFinishDate}</strong>
             </Alert>
         )}
-
 
         <Typography variant="h6" component="h2" gutterBottom fontWeight={500}>
           Proses Laundry:
@@ -307,17 +310,9 @@ function LaundryStatusDisplay() {
                     <ListItem disableGutters>
                       <ListItemText primary="Nama Pelanggan" secondary={statusData.details.customerName} primaryTypographyProps={{fontWeight: 500}} />
                     </ListItem>
-                     <ListItem disableGutters>
-                      <ListItemText primary="Jenis Layanan" secondary={statusData.details.serviceType} primaryTypographyProps={{fontWeight: 500}}/>
-                    </ListItem>
                     {statusData.details.itemsDescription && (
                       <ListItem disableGutters>
                         <ListItemText primary="Deskripsi Pakaian" secondary={statusData.details.itemsDescription} primaryTypographyProps={{fontWeight: 500}}/>
-                      </ListItem>
-                    )}
-                    {typeof statusData.details.weightKg === 'number' && (
-                      <ListItem disableGutters>
-                        <ListItemText primary="Berat" secondary={`${statusData.details.weightKg} kg`} primaryTypographyProps={{fontWeight: 500}}/>
                       </ListItem>
                     )}
                   </List>
