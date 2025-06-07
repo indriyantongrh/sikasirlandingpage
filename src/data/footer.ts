@@ -7,7 +7,7 @@ export const footerDetails: {
     telephone: string;
     socials: ISocials;
 } = {
-    subheading: "Empowering businesses with cutting-edge financial technology solutions.",
+    subheading: "Bersama UMKM Maju, Lewat Teknologi Kasir Masa Kini.",
     quickLinks: [
         {
             text: "Features",

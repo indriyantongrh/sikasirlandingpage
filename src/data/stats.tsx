@@ -5,18 +5,18 @@ import { IStats } from "@/types";
 
 export const stats: IStats[] = [
     {
-        title: "20M+",
+        title: "1 Juta+ Transaksi Diproses",
         icon: <BsBarChartFill size={34} className="text-blue-500" />,
-        description: "Transactions processed securely every day, providing real-time insights."
+        description: "Setiap hari, jutaan pakaian dicatat dan dikelola dengan akurat oleh pengguna kami—hemat waktu dan tenaga."
     },
     {
-        title: "5.0",
+        title: "4.9+ Rating Pengguna",
         icon: <BsFillStarFill size={34} className="text-yellow-500" />,
-        description: "Star rating, consistently maintained across app stores."
+        description: "Ribuan pengguna puas dan memberi ulasan positif di Play Store & App Store—buktikan sendiri kemudahannya!"
     },
     {
-        title: "200+ ",
+        title: "10.000+ Laundry Berlangganan ",
         icon: <PiGlobeFill size={34} className="text-green-600" />,
-        description: "Financial Institutions, seamlessly integrated, so you can manage all accounts."
+        description: "Dipercaya oleh ribuan pemilik laundry rumahan dan profesional di seluruh Indonesia."
     }
 ];

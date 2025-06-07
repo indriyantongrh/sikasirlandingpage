@@ -18,7 +18,6 @@ const Header: React.FC = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
-
     return (
         <header className="bg-transparent fixed top-0 left-0 right-0 md:absolute z-50 mx-auto w-full">
             <Container className="!px-0">
@@ -48,8 +47,12 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#cta" className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors">
-                                Download
+                           <Link
+                            href="#cta"
+                            style={{ backgroundColor: '#0a173e', color: 'white' }}
+                            className="px-8 py-3 rounded-full transition-colors hover:opacity-90"
+                            >
+                            Download Sekarang
                             </Link>
                         </li>
                     </ul>
@@ -59,7 +62,8 @@ const Header: React.FC = () => {
                         <button
                             onClick={toggleMenu}
                             type="button"
-                            className="bg-primary text-black focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
+                            style={{ backgroundColor: '#0a173e', color: 'white' }}
+                            className=" focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                         >
@@ -94,8 +98,12 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#cta" className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
-                                Get Started
+                            <Link
+                            href="#cta"
+                            style={{ backgroundColor: '#0a173e', color: 'white' }}
+                            className="px-8 py-3 rounded-full transition-colors hover:opacity-90"
+                            >
+                            Download Sekarang
                             </Link>
                         </li>
                     </ul>
@@ -104,5 +112,4 @@ const Header: React.FC = () => {
         </header>
     );
 };
-
 export default Header;
