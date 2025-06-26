@@ -1,6 +1,6 @@
 // app/privacy-policy/page.tsx
 import React from 'react';
-import { Container, Typography, Paper, Box, Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Container, Typography, Paper, Box, Divider, List, ListItem, ListItemText } from '@mui/material';
 import {
   Policy,
   Info,
@@ -13,7 +13,7 @@ import {
   ChildCare
 } from '@mui/icons-material';
 
-// Helper component for consistent section titles
+// Helper component untuk konsistensi judul
 const SectionTitle = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
   <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, mt: 3 }}>
     {icon}
@@ -27,7 +27,7 @@ export default function PrivacyPolicyPage() {
   const effectiveDate = "June 26, 2025"; // TODO: Change to your effective date
   const developerName = "SIKASIR LAUNDRY DEV"; // TODO: Change to your name
   const contactEmail = "support@sikasirlaundry.web.id"; // TODO: Change to your email
-  const websiteUrl = "https://sikasirlaundry.web.id/"; // Your website link
+  const websiteUrl = "https://sikasirlaundry.web.id/"; 
 
   return (
     <Container maxWidth="md" sx={{ py: 5 }}>
@@ -45,8 +45,9 @@ export default function PrivacyPolicyPage() {
           </Typography>
         </Box>
 
+        {/* PERBAIKAN: Mengganti " dengan &quot; */}
         <Typography variant="body1" sx={{ mb: 3 }}>
-          Thank you for using SIKASIR LAUNDRY ("the Application"), a Point of Sale (POS) application designed to assist with your laundry business operations. This Privacy Policy explains how we ({developerName}) collect, use, and protect your information when you use our Application. By using the Application, you agree to the collection and use of information in accordance with this policy.
+          Thank you for using SIKASIR LAUNDRY (&quot;the Application&quot;), a Point of Sale (POS) application designed to assist with your laundry business operations. This Privacy Policy explains how we ({developerName}) collect, use, and protect your information when you use our Application. By using the Application, you agree to the collection and use of information in accordance with this policy.
         </Typography>
 
         <Divider sx={{ my: 2 }} />
@@ -86,7 +87,7 @@ export default function PrivacyPolicyPage() {
             We use the collected information for various purposes:
           </Typography>
            <List dense>
-              <ListItem>To provide and manage the Application's core functions (processing orders, managing customers, generating reports).</ListItem>
+              <ListItem>To provide and manage the Application&apos;s core functions (processing orders, managing customers, generating reports).</ListItem>
               <ListItem>To facilitate communication, such as sending digital receipts to your customers via third-party services like WhatsApp at your command.</ListItem>
               <ListItem>To respond to your inquiries, feedback, or requests for support.</ListItem>
               <ListItem>To analyze usage data to identify trends, improve functionality, and enhance user experience.</ListItem>
@@ -132,7 +133,8 @@ export default function PrivacyPolicyPage() {
         
         {/* --- 6. Children's Privacy --- */}
         <section>
-          <SectionTitle icon={<ChildCare color="action" />} text="6. Children's Privacy" />
+          {/* PERBAIKAN: Mengganti ' dengan &apos; */}
+          <SectionTitle icon={<ChildCare color="action" />} text="6. Children&apos;s Privacy" />
            <Typography variant="body1" paragraph>
             Our service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13.
           </Typography>
