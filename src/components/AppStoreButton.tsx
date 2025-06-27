@@ -23,6 +23,9 @@ const AppStoreButton = ({ dark }: { dark?: boolean }) => {
                     </svg>
                 </div>
                 <div>
+                    <div className="text-xs">
+                        Download di Google Play 
+                    </div>
                     <div className="-mt-1 font-sans text-xl font-semibold">
                         COBA 14 HARI GRATIS
                     </div>
