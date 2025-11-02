@@ -23,7 +23,6 @@ import { IPricing } from './PricingColumn'; // Impor interface IPricing
 // --- KONFIGURASI FIREBASE DIMASUKKAN DI SINI ---
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, query, orderBy } from "firebase/firestore";
-import { env } from 'process';
 
 // TODO: Ganti dengan konfigurasi Firebase Anda
 // PERINGATAN: JANGAN GUNAKAN INI DI PRODUCTION. Gunakan Environment Variables.
@@ -105,7 +104,7 @@ const Pricing: React.FC = () => {
                 <PricingColumn 
                     key={tier.id} 
                     tier={tier} 
-                    highlight // Highlight untuk kolom tengah jika ada 3 kolom
+                
                 />
             ))}
         </div>

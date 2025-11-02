@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { BsFillCheckCircleFill } from "react-icons/bs";
+// import { BsFillCheckCircleFill } from "react-icons/bs";
 
 // Pastikan Anda memiliki tipe data ini di file @/types atau sesuaikan path-nya
 export interface IPricing {
@@ -36,10 +36,10 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
   return (
     <div className={clsx(
       "w-full max-w-sm mx-auto bg-white rounded-xl border border-gray-200 lg:max-w-full relative overflow-hidden transition-all duration-300",
-      { "shadow-lg border-2": highlight }
+        { backgroundColor: colorHex }
     )}
   
-      style={highlight ? { borderColor: colorHex } : {}}
+      style={{ borderColor: colorHex }}
     >
 
       {/* Badge Diskon di Pojok */}
@@ -47,10 +47,10 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
         <div className={clsx(
           "absolute top-0 right-0 py-1.5 px-4 rounded-bl-lg text-white text-xl font-bold z-10",
         // Terapkan bg-primary jika TIDAK highlight
-            { "bg-primary": !highlight }
+            { backgroundColor: colorHex }
         )}
         // Gunakan 'style' untuk menerapkan colorHex dinamis ke background
-          style={highlight ? { backgroundColor: colorHex } : {}}
+          style={ { backgroundColor: colorHex } }
         >
           {discount}
         </div>
@@ -59,9 +59,9 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
       <div className="p-6 border-b border-gray-200 rounded-t-xl">
         <h3 className={clsx(
           "text-2xl font-semibold mb-4",
-          { "text-primary": !highlight }
+        { color: colorHex } 
         )}
-        style={highlight ? { color: colorHex } : {}}
+        style={ { color: colorHex }}
         >
           {name}
         </h3>
@@ -79,7 +79,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
           <p className="text-3xl md:text-5xl font-bold">
             <span 
               // Gunakan 'style' untuk menerapkan colorHex dinamis ke text
-              style={highlight ? { color: colorHex } : {}}
+              style={ { color: colorHex }}
             >
               {formatCurrency(price)}
             </span>
@@ -101,7 +101,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
           
           }
         )}
-        style={highlight ? { backgroundColor: colorHex } : {}}
+        style={ { backgroundColor: colorHex } }
         >
           Pilih Paket
         </button> 
