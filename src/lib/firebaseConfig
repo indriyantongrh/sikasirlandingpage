@@ -1,0 +1,16 @@
+// --- Konfigurasi dan Inisialisasi Firebase ---
+// Contoh di lib/firebase.ts
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+// TODO: GANTI DENGAN KREDENSIAL PROYEK FIREBASE ANDA
+const firebaseConfig = {
+  apiKey: "AIzaSyD9sgDL4BXnCqK1CLb53ENCOSD8FjpsTXU",
+  authDomain: "kasirlaundryapps.firebaseapp.com",
+  projectId: "kasirlaundryapps",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export { db };

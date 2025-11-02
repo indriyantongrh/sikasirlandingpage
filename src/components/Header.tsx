@@ -46,15 +46,15 @@ const Header: React.FC = () => {
                                 </Link>
                             </li>
                         ))}
-                        <li>
-                           <Link
+                        {/* <li>
+                           <a target='_blank'
                             href="#https://play.google.com/store/apps/details?id=com.sikasir.laundry.sikasirlaundry"
                             style={{ backgroundColor: '#0a173e', color: 'white' }}
                             className="px-8 py-3 rounded-full transition-colors hover:opacity-90"
                             >
                             Download Sekarang
-                            </Link>
-                        </li>
+                            </a>
+                        </li> */}
                     </ul>
 
                     {/* Mobile Menu Button */}
@@ -97,15 +97,15 @@ const Header: React.FC = () => {
                                 </Link>
                             </li>
                         ))}
-                        <li>
-                            <Link
+                        {/* <li>
+                            <a target='_blank'
                             href="https://play.google.com/store/apps/details?id=com.sikasir.laundry.sikasirlaundry"
                             style={{ backgroundColor: '#0a173e', color: 'white' }}
                             className="px-8 py-3 rounded-full transition-colors hover:opacity-90"
                             >
                             Download Sekarang
-                            </Link>
-                        </li>
+                            </a>
+                        </li> */}
                     </ul>
                 </div>
             </Transition>

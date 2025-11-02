@@ -17,9 +17,12 @@ export interface IBenefitBullet {
 }
 
 export interface IPricing {
+    id: string;
     name: string;
-    price: number | string;
-    features: string[];
+    price: number;
+    originalPrice?:  number;
+    totalPrice:  number;
+    discount?: string;
 }
 
 export interface IFAQ {
