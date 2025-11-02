@@ -100,7 +100,7 @@ const Pricing: React.FC = () => {
             </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:max-w-6xl lg:mx-auto">
-            {tiers.map((tier, index) => (
+            {tiers.map((tier) => (
                 <PricingColumn 
                     key={tier.id} 
                     tier={tier} 
