@@ -19,7 +19,6 @@ import {
 } from "firebase/firestore";
 
 import { createHash } from "crypto";
-import { Password } from "@mui/icons-material";
 
 // ----------------------------
 // FIREBASE CONFIG
