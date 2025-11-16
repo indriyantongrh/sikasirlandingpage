@@ -66,7 +66,7 @@ export default function ResetPasswordPage() {
       const hashed = hashPassword(newPass);
 
       // simpan ke Firestore
-      await setDoc(doc(db, "users", email), { passwordHash: hashed }, { merge: true });
+      await setDoc(doc(db, "users", email), { password: hashed }, { merge: true });
 
       setStatus("Password berhasil direset! Silakan login pada aplikasi mobile.");
     } catch (err: unknown) {
