@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 
 import { createHash } from "crypto";
+import { Password } from "@mui/icons-material";
 
 // ----------------------------
 // FIREBASE CONFIG
@@ -112,7 +113,7 @@ export default function ResetPasswordPage() {
       // 5. Update passwordHash di users/{uid}
       await setDoc(
         doc(db, "users", uid),
-        { passwordHash: hashed },
+        { password: hashed },
         { merge: true }
       );
 
