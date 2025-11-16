@@ -69,8 +69,12 @@ export default function ResetPasswordPage() {
       await setDoc(doc(db, "users", email), { passwordHash: hashed }, { merge: true });
 
       setStatus("Password berhasil direset! Silakan login pada aplikasi mobile.");
-    } catch (err: any) {
-      setStatus("Terjadi kesalahan: " + err.message);
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            setStatus("Terjadi kesalahan: " + err.message);
+        } else {
+            setStatus("Terjadi kesalahan yang tidak diketahui");
+        }
     }
   };
 
