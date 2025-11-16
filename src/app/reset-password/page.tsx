@@ -13,9 +13,9 @@ import { createHash } from "crypto";
 
 // --- CONFIG FIREBASE ---
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
+  apiKey: "AIzaSyD9sgDL4BXnCqK1CLb53ENCOSD8FjpsTXU",
+  authDomain: "kasirlaundryapps.firebaseapp.com",
+  projectId: "kasirlaundryapps",
 };
 // -----------------------------------
 
