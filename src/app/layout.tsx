@@ -111,6 +111,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4120352110495827"
+          crossOrigin="anonymous"
+        />
       </head>
       <body
         className={`${manrope.className} ${sourceSans.className} antialiased`}
