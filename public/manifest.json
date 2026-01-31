@@ -1,0 +1,24 @@
+{
+  "name": "SIKASIR LAUNDRY - Aplikasi Kasir Laundry Digital",
+  "short_name": "SIKASIR LAUNDRY",
+  "description": "Aplikasi kasir laundry digital terbaik untuk UMKM Indonesia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo-skl.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo-skl.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "id"
+}

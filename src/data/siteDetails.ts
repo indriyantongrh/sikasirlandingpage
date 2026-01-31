@@ -1,12 +1,12 @@
 export const siteDetails = {
-    siteName: 'Sikasir Laundry',
-    siteUrl: 'https://finwise-omega.vercel.app/',
+    siteName: 'SIKASIR LAUNDRY',
+    siteUrl: 'https://sikasirlaundry.web.id',
     metadata: {
-        title: 'Sikasir Laundry',
-        description: 'Finwise empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
+        title: 'SIKASIR LAUNDRY - Aplikasi Kasir Laundry Digital #1 Indonesia',
+        description: 'Aplikasi kasir laundry terbaik untuk UMKM. Kelola transaksi, pelanggan, karyawan & stok dalam satu aplikasi. Gratis selamanya! Download sekarang di Play Store.',
     },
     language: 'id',
     locale: 'id-ID',
-    siteLogo: `${process.env.BASE_PATH || ''}/images/logo-skl.png`, // or use a string for the logo e.g. "TechStartup"
-    googleAnalyticsId: '', // e.g. G-XXXXXXX,
+    siteLogo: `${process.env.BASE_PATH || ''}/images/logo-skl.png`,
+    googleAnalyticsId: 'G-HGQ17E0R1T',
 }
