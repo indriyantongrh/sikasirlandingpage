@@ -4,6 +4,7 @@ import Container from "@/components/Container";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 import Pricing from "@/components/Pricing/Pricing";
+import AdBanner from "@/components/AdBanner";
 
 export const metadata = {
   title: "Aplikasi Kasir Laundry Digital Terbaik | SIKASIR LAUNDRY",
@@ -142,9 +143,20 @@ const HomePage: React.FC = () => {
       />
       <Hero />
       <Container>
+        {/* Ad setelah Hero */}
+        <AdBanner slot="YOUR_AD_SLOT_1" format="horizontal" />
+        
         <Stats />
         <Benefits />
+        
+        {/* Ad setelah Benefits */}
+        <AdBanner slot="YOUR_AD_SLOT_2" format="auto" />
+        
         <Pricing />
+        
+        {/* Ad sebelum CTA */}
+        <AdBanner slot="YOUR_AD_SLOT_3" format="horizontal" />
+        
         <CTA />
       </Container>
     </>
