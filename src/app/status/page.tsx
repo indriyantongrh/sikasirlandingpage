@@ -402,6 +402,7 @@ import CheckroomIcon from '@mui/icons-material/Checkroom';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import AdBanner from '@/components/AdBanner';
 
 // --- Konfigurasi dan Inisialisasi Firebase ---
 import { initializeApp, getApps, getApp } from "firebase/app";
@@ -726,6 +727,12 @@ function LaundryStatusDisplay() {
           </Alert>
         )}
       </Paper>
+      
+      {/* Iklan di bawah konten utama - tidak menghalangi info penting */}
+      <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+        <AdBanner slot="YOUR_AD_SLOT_STATUS" format="horizontal" className="max-w-full" />
+      </Box>
+      
       <style jsx global>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }

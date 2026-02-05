@@ -3,35 +3,42 @@ import { IMenuItem, ISocials } from "@/types";
 export const footerDetails: {
     subheading: string;
     quickLinks: IMenuItem[];
+    legalLinks: IMenuItem[];
     email: string;
-    // telephone: string;
     socials: ISocials;
 } = {
     subheading: "Bersama UMKM Maju, Lewat Teknologi Kasir Masa Kini.",
     quickLinks: [
         {
-            text: "Features",
-            url: "#features"
+            text: "Tentang Kami",
+            url: "/about"
         },
         {
-            text: "Pricing",
-            url: "#pricing"
+            text: "Blog",
+            url: "/blog"
         },
         {
-            text: "Testimonials",
-            url: "#testimonials"
+            text: "FAQ",
+            url: "/faq"
+        },
+        {
+            text: "Hubungi Kami",
+            url: "/contact"
+        }
+    ],
+    legalLinks: [
+        {
+            text: "Kebijakan Privasi",
+            url: "/privacy-policy"
+        },
+        {
+            text: "Syarat & Ketentuan",
+            url: "/terms"
         }
     ],
     email: 'support@sikasirlaundry.web.id',
-    // telephone: '+1 (123) 456-7890',
     socials: {
-        // github: 'https://github.com',
-        // x: 'https://twitter.com/x',
-        // twitter: 'https://twitter.com/Twitter',
         facebook: 'https://www.facebook.com/Sikasirlaundry',
-        // youtube: 'https://youtube.com',
-        // linkedin: 'https://www.linkedin.com',
-        // threads: 'https://www.threads.net',
         instagram: 'https://www.instagram.com/sikasir.laundry',
     }
 }
