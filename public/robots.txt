@@ -1,16 +1,8 @@
-# SIKASIR LAUNDRY - robots.txt
+# *
 User-agent: *
 Allow: /
 Disallow: /reset-password
 Disallow: /api/*
-
-# Google
-User-agent: Googlebot
-Allow: /
-
-# Bing
-User-agent: Bingbot
-Allow: /
 
 # Host
 Host: https://sikasirlaundry.web.id

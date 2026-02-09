@@ -1,28 +1,44 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Container from "@/components/Container";
 import BlogGrid from "@/components/BlogGrid";
 import Pagination from "@/components/Pagination";
 import { getArticlesByPage, getTotalPages } from "@/data/blog";
 
-export const metadata: Metadata = {
-  title: "Blog - Tips & Panduan Usaha Laundry",
-  description: "Baca artikel terbaru seputar tips usaha laundry, panduan menggunakan aplikasi kasir, dan strategi mengembangkan bisnis laundry Anda.",
-  alternates: {
-    canonical: "https://sikasirlaundry.web.id/blog",
-  },
-  openGraph: {
-    title: "Blog - Tips & Panduan Usaha Laundry | SIKASIR LAUNDRY",
-    description: "Baca artikel terbaru seputar tips usaha laundry, panduan menggunakan aplikasi kasir, dan strategi mengembangkan bisnis laundry Anda.",
-    url: "https://sikasirlaundry.web.id/blog",
-    siteName: "SIKASIR LAUNDRY",
-    locale: "id_ID",
-    type: "website",
-  },
-};
-
-export default function BlogPage() {
-  const currentPage = 1;
+export async function generateStaticParams() {
   const totalPages = getTotalPages();
+  return Array.from({ length: totalPages }, (_, i) => ({
+    page: String(i + 1),
+  })).filter(p => p.page !== "1"); // page 1 is /blog
+}
+
+export async function generateMetadata({ params }: { params: { page: string } }): Promise<Metadata> {
+  return {
+    title: `Blog - Halaman ${params.page} | Tips & Panduan Usaha Laundry`,
+    description: "Baca artikel terbaru seputar tips usaha laundry, panduan menggunakan aplikasi kasir, dan strategi mengembangkan bisnis laundry Anda.",
+    alternates: {
+      canonical: `https://sikasirlaundry.web.id/blog/page/${params.page}`,
+    },
+    robots: {
+      index: false, // Hindari duplicate content untuk halaman pagination
+      follow: true,
+    },
+  };
+}
+
+export default function BlogPaginatedPage({ params }: { params: { page: string } }) {
+  const currentPage = parseInt(params.page, 10);
+  const totalPages = getTotalPages();
+
+  if (isNaN(currentPage) || currentPage < 1 || currentPage > totalPages) {
+    notFound();
+  }
+
+  // Redirect page 1 to /blog
+  if (currentPage === 1) {
+    notFound();
+  }
+
   const pageArticles = getArticlesByPage(currentPage);
 
   return (
