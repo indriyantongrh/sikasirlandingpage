@@ -2,131 +2,100 @@ import { Metadata } from "next";
 import Container from "@/components/Container";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { articles, getArticleBySlug } from "@/data/blog";
+import { supabase, BlogPost } from "@/lib/supabase";
 
-export async function generateStaticParams() {
-  return articles.map((article) => ({ slug: article.slug }));
+async function getPost(slug: string): Promise<BlogPost | null> {
+  const { data } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .single();
+  return data as BlogPost | null;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = getArticleBySlug(params.slug);
-  if (!article) return { title: "Artikel Tidak Ditemukan" };
+  const post = await getPost(params.slug);
+  if (!post) return { title: "Artikel Tidak Ditemukan" };
 
   const url = `https://sikasirlaundry.web.id/blog/${params.slug}`;
-
   return {
-    title: article.title,
-    description: article.description,
-    alternates: {
-      canonical: url,
-    },
+    title: post.title,
+    description: post.excerpt || "",
+    alternates: { canonical: url },
     openGraph: {
-      title: article.title,
-      description: article.description,
+      title: post.title,
+      description: post.excerpt || "",
       url,
       type: "article",
-      publishedTime: article.date,
       siteName: "SIKASIR LAUNDRY",
       locale: "id_ID",
-      images: [
-        {
-          url: "/images/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
-      description: article.description,
-      images: ["/images/og-image.png"],
+      title: post.title,
+      description: post.excerpt || "",
     },
   };
 }
 
-export default function BlogArticlePage({ params }: { params: { slug: string } }) {
-  const article = getArticleBySlug(params.slug);
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
-  if (!article) {
-    notFound();
-  }
+export default async function BlogArticlePage({ params }: { params: { slug: string } }) {
+  const post = await getPost(params.slug);
+  if (!post) notFound();
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: article.title,
-    description: article.description,
-    datePublished: article.date,
-    author: {
-      "@type": "Organization",
-      name: "SIKASIR LAUNDRY",
-      url: "https://sikasirlaundry.web.id",
-    },
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.created_at,
+    dateModified: post.updated_at,
+    author: { "@type": "Organization", name: "SIKASIR LAUNDRY" },
     publisher: {
       "@type": "Organization",
       name: "SIKASIR LAUNDRY",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://sikasirlaundry.web.id/images/logo-skl.png",
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://sikasirlaundry.web.id/blog/${params.slug}`,
+      logo: { "@type": "ImageObject", url: "https://sikasirlaundry.web.id/images/logo-skl.png" },
     },
   };
 
   return (
     <div className="py-20 md:py-28">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Container>
         <article className="max-w-3xl mx-auto">
           <div className="mb-8">
-            <Link href="/blog" className="text-blue-600 hover:underline text-sm">
-              ← Kembali ke Blog
-            </Link>
+            <Link href="/blog" className="text-blue-600 hover:underline text-sm">← Kembali ke Blog</Link>
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded">
-              {article.category}
-            </span>
-            <span className="text-sm text-gray-500">{article.readTime} baca</span>
+            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded">{post.category}</span>
+            <span className="text-sm text-gray-500">{post.read_time} baca</span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            {article.title}
-          </h1>
-
-          <p className="text-gray-500 mb-8">{article.date}</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
+          <p className="text-gray-500 mb-8">{formatDate(post.created_at)}</p>
 
           <div className="prose prose-lg max-w-none">
-            {article.content.split("\n").map((line, index) => {
-              const trimmed = line.trim();
-              if (!trimmed) return null;
-              if (trimmed.startsWith("## ")) {
-                return <h2 key={index} className="text-xl font-semibold mt-8 mb-4">{trimmed.replace("## ", "")}</h2>;
-              }
-              if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
-                return <p key={index} className="font-semibold mt-4">{trimmed.replace(/\*\*/g, "")}</p>;
-              }
-              if (trimmed.startsWith("- ")) {
-                return <li key={index} className="text-gray-600 ml-4">{trimmed.replace("- ", "")}</li>;
-              }
-              return <p key={index} className="text-gray-600 mb-4">{trimmed}</p>;
+            {post.content.split("\n").map((line, i) => {
+              const t = line.trim();
+              if (!t) return null;
+              if (t.startsWith("## ")) return <h2 key={i} className="text-xl font-semibold mt-8 mb-4">{t.replace("## ", "")}</h2>;
+              if (t.startsWith("- ")) return <li key={i} className="text-gray-600 ml-4">{t.replace("- ", "")}</li>;
+              return <p key={i} className="text-gray-600 mb-4">{t}</p>;
             })}
           </div>
 
           <div className="mt-12 p-6 bg-blue-50 rounded-xl">
             <h3 className="font-semibold text-lg mb-2">Kelola Usaha Laundry Lebih Mudah!</h3>
-            <p className="text-gray-600 mb-4">
-              Download SIKASIR LAUNDRY sekarang dan rasakan kemudahan mengelola bisnis laundry Anda.
-            </p>
+            <p className="text-gray-600 mb-4">Download SIKASIR LAUNDRY sekarang dan rasakan kemudahan mengelola bisnis laundry Anda.</p>
             <a
               href="https://play.google.com/store/apps/details?id=com.sikasir.laundry.sikasirlaundry"
               target="_blank"
