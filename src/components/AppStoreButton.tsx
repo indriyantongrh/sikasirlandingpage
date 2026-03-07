@@ -27,7 +27,7 @@ const AppStoreButton = ({ dark }: { dark?: boolean }) => {
                         Download di Google Play Store
                     </div>
                     <div className="-mt-1 font-sans text-xl font-semibold">
-                        COBA 14 HARI GRATIS
+                        DOWNLOAD GRATIS
                     </div>
                 </div>
             </button>

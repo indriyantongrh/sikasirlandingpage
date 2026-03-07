@@ -11,7 +11,7 @@ import SectionTitle from "@/components/SectionTitle";
 
 export const metadata = {
   title: "Aplikasi Kasir Laundry Digital Terbaik | SIKASIR LAUNDRY",
-  description: "Kelola usaha laundry lebih mudah, cepat, dan profesional. Aplikasi kasir laundry gratis dengan fitur lengkap: transaksi, pelanggan, karyawan, stok & laporan otomatis.",
+  description: "Kelola usaha laundry lebih mudah, cepat, dan profesional. All-in-one solution mulai dari Rp 25.000/bulan. Fitur lengkap: transaksi, pelanggan, karyawan, stok & laporan otomatis.",
   keywords: [
     "aplikasi kasir laundry", 
     "aplikasi kasir laundry gratis",
@@ -32,7 +32,7 @@ export const metadata = {
   ],
   openGraph: {
     title: "Aplikasi Kasir Laundry Digital Terbaik | SIKASIR LAUNDRY",
-    description: "Kelola usaha laundry lebih mudah, cepat, dan profesional. Dapatkan laporan otomatis dan sistem stok pintar.",
+    description: "Kelola usaha laundry lebih mudah, cepat, dan profesional. All-in-one solution mulai dari Rp 25.000/bulan. Laporan otomatis dan sistem stok pintar.",
     url: "https://sikasirlaundry.web.id",
     siteName: "SIKASIR LAUNDRY",
     images: [
@@ -49,7 +49,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Kelola Laundry Lebih Cerdas dengan SIKASIR LAUNDRY",
-    description: "Mulai gratis! Aplikasi kasir khusus laundry dengan fitur lengkap untuk bantu usaha makin untung.",
+    description: "All-in-one solution mulai dari Rp 25.000/bulan. Aplikasi kasir khusus laundry dengan fitur lengkap untuk bantu usaha makin untung.",
     images: ["/images/hero.png"],
   },
 };
