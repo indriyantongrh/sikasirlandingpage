@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { IBlogArticle } from "@/data/blog";
 
 const categoryColors: Record<string, string> = {
@@ -23,8 +24,8 @@ const BlogGrid: React.FC<BlogGridProps> = ({ articles }) => {
           className="group"
         >
           <article className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition h-full flex flex-col">
-            <div className="h-40 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-              <span className="text-white text-4xl">📝</span>
+            <div className="h-40 relative overflow-hidden bg-hero-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] flex items-center justify-center">
+              <Image src="/images/hero.png" alt={article.title} width={120} height={106} className="object-contain" />
             </div>
             <div className="p-5 flex flex-col flex-grow">
               <div className="flex items-center gap-2 mb-3">

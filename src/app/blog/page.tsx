@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Container from "@/components/Container";
 import Link from "next/link";
+import Image from "next/image";
 import { supabase, BlogPost } from "@/lib/supabase";
 
 export const metadata: Metadata = {
@@ -65,9 +66,31 @@ export default async function BlogPage({
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Blog SIKASIR LAUNDRY
           </h1>
-          <p className="text-gray-600 text-center mb-12">
+          <p className="text-gray-600 text-center mb-8">
             Tips, panduan, dan insight untuk mengembangkan usaha laundry Anda
           </p>
+
+          {/* Filter Kategori */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            <Link href="/blog" className="text-xs px-3 py-1.5 rounded-full border bg-blue-600 text-white border-blue-600">
+              Semua
+            </Link>
+            <Link href="/blog/kategori/tips-bisnis" className="text-xs px-3 py-1.5 rounded-full border hover:bg-gray-100 transition">
+              Tips Bisnis
+            </Link>
+            <Link href="/blog/kategori/teknologi" className="text-xs px-3 py-1.5 rounded-full border hover:bg-gray-100 transition">
+              Teknologi
+            </Link>
+            <Link href="/blog/kategori/marketing" className="text-xs px-3 py-1.5 rounded-full border hover:bg-gray-100 transition">
+              Marketing
+            </Link>
+            <Link href="/blog/kategori/manajemen" className="text-xs px-3 py-1.5 rounded-full border hover:bg-gray-100 transition">
+              Manajemen
+            </Link>
+            <Link href="/blog/kategori/tutorial" className="text-xs px-3 py-1.5 rounded-full border hover:bg-gray-100 transition">
+              Tutorial
+            </Link>
+          </div>
 
           {posts.length === 0 ? (
             <p className="text-center text-gray-500">Belum ada artikel.</p>
@@ -76,8 +99,8 @@ export default async function BlogPage({
               {posts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group">
                   <article className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition h-full flex flex-col">
-                    <div className="h-40 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-                      <span className="text-white text-4xl">{post.cover_emoji || "📝"}</span>
+                    <div className="h-40 relative overflow-hidden bg-hero-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] flex items-center justify-center">
+                      <Image src="/images/hero.png" alt={post.title} width={120} height={106} className="object-contain" />
                     </div>
                     <div className="p-5 flex flex-col flex-grow">
                       <div className="flex items-center gap-2 mb-3">

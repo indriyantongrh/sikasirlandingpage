@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Container from "@/components/Container";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase, BlogPost } from "@/lib/supabase";
@@ -116,7 +117,7 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded">{post.category}</span>
+            <Link href={`/blog/kategori/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200 transition">{post.category}</Link>
             <span className="text-sm text-gray-500">{post.read_time} baca</span>
           </div>
 
@@ -154,8 +155,8 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
               {relatedPosts.map((rp) => (
                 <Link key={rp.id} href={`/blog/${rp.slug}`} className="group">
                   <div className="border rounded-xl overflow-hidden hover:shadow-lg transition h-full flex flex-col">
-                    <div className="h-28 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-                      <span className="text-white text-3xl">{rp.cover_emoji || "📝"}</span>
+                    <div className="h-28 relative overflow-hidden bg-hero-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] flex items-center justify-center">
+                      <Image src="/images/hero.png" alt={rp.title} width={90} height={80} className="object-contain" />
                     </div>
                     <div className="p-4 flex flex-col flex-grow">
                       <span className={`text-xs px-2 py-0.5 rounded w-fit mb-2 ${categoryColors[rp.category] || "bg-gray-100 text-gray-700"}`}>

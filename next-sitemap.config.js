@@ -18,6 +18,17 @@ module.exports = {
       lastmod: new Date().toISOString(),
     });
 
+    // Tambah halaman kategori
+    const categories = ['tips-bisnis', 'teknologi', 'marketing', 'manajemen', 'tutorial'];
+    categories.forEach((cat) => {
+      result.push({
+        loc: `/blog/kategori/${cat}`,
+        changefreq: 'weekly',
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      });
+    });
+
     // Fetch blog slugs dari Supabase
     try {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
