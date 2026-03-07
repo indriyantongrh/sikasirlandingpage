@@ -31,11 +31,10 @@ const Hero: React.FC = () => {
                     src={heroDetails.centerImageSrc}
                     width={384}
                     height={340}
-                    quality={100}
+                    quality={85}
                     sizes="(max-width: 768px) 100vw, 384px"
                     priority={true}
-                    unoptimized={true}
-                    alt="app mockup"
+                    alt="Aplikasi Kasir Laundry SIKASIR LAUNDRY - tampilan dashboard"
                     className='relative mt-12 md:mt-16 mx-auto z-10'
                 />
             </div>

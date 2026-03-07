@@ -14,6 +14,36 @@ async function getPost(slug: string): Promise<BlogPost | null> {
   return data as BlogPost | null;
 }
 
+async function getRelatedPosts(category: string, currentSlug: string): Promise<BlogPost[]> {
+  // Ambil 3 artikel dari kategori yang sama
+  const { data: sameCat } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("is_published", true)
+    .eq("category", category)
+    .neq("slug", currentSlug)
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  const related = (sameCat as BlogPost[]) || [];
+
+  // Kalau kurang dari 3, tambah dari kategori lain
+  if (related.length < 3) {
+    const excludeSlugs = [currentSlug, ...related.map(p => p.slug)];
+    const { data: others } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("is_published", true)
+      .not("slug", "in", `(${excludeSlugs.join(",")})`)
+      .order("created_at", { ascending: false })
+      .limit(3 - related.length);
+    if (others) related.push(...(others as BlogPost[]));
+  }
+
+  return related;
+}
+
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPost(params.slug);
   if (!post) return { title: "Artikel Tidak Ditemukan" };
@@ -47,9 +77,19 @@ function formatDate(dateStr: string) {
   });
 }
 
+const categoryColors: Record<string, string> = {
+  "Tips Bisnis": "bg-blue-100 text-blue-700",
+  "Teknologi": "bg-purple-100 text-purple-700",
+  "Marketing": "bg-green-100 text-green-700",
+  "Manajemen": "bg-orange-100 text-orange-700",
+  "Tutorial": "bg-red-100 text-red-700",
+};
+
 export default async function BlogArticlePage({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug);
   if (!post) notFound();
+
+  const relatedPosts = await getRelatedPosts(post.category, post.slug);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -105,6 +145,31 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
             </a>
           </div>
         </article>
+
+        {/* Artikel Terkait */}
+        {relatedPosts.length > 0 && (
+          <section className="max-w-3xl mx-auto mt-16">
+            <h2 className="text-2xl font-bold mb-6">Artikel Terkait</h2>
+            <div className="grid sm:grid-cols-3 gap-4">
+              {relatedPosts.map((rp) => (
+                <Link key={rp.id} href={`/blog/${rp.slug}`} className="group">
+                  <div className="border rounded-xl overflow-hidden hover:shadow-lg transition h-full flex flex-col">
+                    <div className="h-28 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                      <span className="text-white text-3xl">{rp.cover_emoji || "📝"}</span>
+                    </div>
+                    <div className="p-4 flex flex-col flex-grow">
+                      <span className={`text-xs px-2 py-0.5 rounded w-fit mb-2 ${categoryColors[rp.category] || "bg-gray-100 text-gray-700"}`}>
+                        {rp.category}
+                      </span>
+                      <h3 className="font-semibold text-sm group-hover:text-blue-600 transition line-clamp-2">{rp.title}</h3>
+                      <p className="text-xs text-gray-400 mt-auto pt-2">{rp.read_time}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </Container>
     </div>
   );
