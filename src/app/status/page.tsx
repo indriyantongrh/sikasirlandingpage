@@ -610,6 +610,10 @@ function LaundryStatusDisplay() {
 
   return (
     <Container maxWidth="lg" sx={{ mt: { xs: 8, sm: 10, md: 12 }, mb: 4, px: { xs: 2, sm: 3 } }}>
+      {/* Iklan atas halaman status */}
+      <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
+        <AdBanner slot="4120352121" format="auto" className="max-w-full" />
+      </Box>
       <Paper elevation={isMobile ? 2 : 3} sx={{ p: { xs: 2, sm: 3, md: 4 }, borderRadius: '12px' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
             <LocalLaundryServiceIcon color="primary" sx={{ fontSize: isMobile ? '2.5rem' : '3rem', mr: 1.5 }}/>
@@ -728,9 +732,9 @@ function LaundryStatusDisplay() {
         )}
       </Paper>
       
-      {/* Iklan di bawah konten utama - tidak menghalangi info penting */}
+      {/* Iklan di bawah konten utama */}
       <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
-        <AdBanner slot="YOUR_AD_SLOT_STATUS" format="horizontal" className="max-w-full" />
+        <AdBanner slot="4120352120" format="horizontal" className="max-w-full" />
       </Box>
       
       <style jsx global>{`
