@@ -1,166 +1,167 @@
-// app/privacy-policy/page.tsx
-import React from 'react';
-import { Container, Typography, Paper, Box, Divider, List, ListItem, ListItemText } from '@mui/material';
-import {
-  Policy,
-  Info,
-  Security,
-  Dns,
-  Share,
-  Lock,
-  ContactMail,
-  Update,
-  ChildCare
-} from '@mui/icons-material';
+import { Metadata } from "next";
+import Container from "@/components/Container";
 
-// Helper component untuk konsistensi judul
-const SectionTitle = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, mt: 3 }}>
-    {icon}
-    <Typography variant="h5" component="h2" fontWeight="bold" sx={{ ml: 1.5 }}>
-      {text}
-    </Typography>
-  </Box>
-);
+export const metadata: Metadata = {
+  title: "Kebijakan Privasi",
+  description: "Kebijakan privasi aplikasi SIKASIR LAUNDRY. Pelajari bagaimana kami mengumpulkan, menggunakan, dan melindungi data Anda.",
+};
 
 export default function PrivacyPolicyPage() {
-  const effectiveDate = "June 26, 2025"; // TODO: Change to your effective date
-  const developerName = "SIKASIR LAUNDRY DEV"; // TODO: Change to your name
-  const contactEmail = "support@sikasirlaundry.web.id"; // TODO: Change to your email
-  const websiteUrl = "https://sikasirlaundry.web.id/"; 
-
   return (
-    <Container maxWidth="md" sx={{ py: 5 }}>
-      <Paper elevation={3} sx={{ p: { xs: 2, sm: 3, md: 5 }, borderRadius: '12px' }}>
-        <Box sx={{ textAlign: 'center', mb: 4 }}>
-          <Policy color="primary" sx={{ fontSize: 60 }} />
-          <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom>
-            Privacy Policy
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            For SIKASIR LAUNDRY
-          </Typography>
-          <Typography variant="caption" display="block" color="text.secondary">
-            Effective Date: {effectiveDate}
-          </Typography>
-        </Box>
+    <div className="py-20 md:py-28">
+      <Container>
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            Kebijakan Privasi
+          </h1>
+          <p className="text-gray-500 text-center mb-12">
+            Berlaku sejak: 26 Juni 2025 &middot; Terakhir diperbarui: Maret 2026
+          </p>
 
-        {/* PERBAIKAN: Mengganti " dengan &quot; */}
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          Thank you for using SIKASIR LAUNDRY (&quot;the Application&quot;), a Point of Sale (POS) application designed to assist with your laundry business operations. This Privacy Policy explains how we ({developerName}) collect, use, and protect your information when you use our Application. By using the Application, you agree to the collection and use of information in accordance with this policy.
-        </Typography>
+          <div className="prose prose-lg max-w-none space-y-8">
+            <p className="text-gray-600 leading-relaxed">
+              Terima kasih telah menggunakan SIKASIR LAUNDRY (&quot;Aplikasi&quot;), aplikasi Point of Sale (POS) 
+              yang dirancang untuk membantu operasional bisnis laundry Anda. Kebijakan Privasi ini menjelaskan 
+              bagaimana kami (SIKASIR LAUNDRY DEV) mengumpulkan, menggunakan, dan melindungi informasi Anda 
+              saat menggunakan Aplikasi kami. Dengan menggunakan Aplikasi, Anda menyetujui pengumpulan dan 
+              penggunaan informasi sesuai dengan kebijakan ini.
+            </p>
 
-        <Divider sx={{ my: 2 }} />
+            <section>
+              <h2 className="text-xl font-semibold mb-3">1. Informasi yang Kami Kumpulkan</h2>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                Untuk menyediakan dan meningkatkan layanan kami, kami mengumpulkan beberapa jenis informasi:
+              </p>
+              <div className="space-y-3">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h3 className="font-semibold mb-1">a. Data yang Anda Berikan Langsung</h3>
+                  <p className="text-gray-600 text-sm">
+                    Informasi akun pengguna (Pemilik &amp; Kasir), informasi pelanggan Anda, data transaksi, 
+                    serta data stok &amp; pengeluaran.
+                  </p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h3 className="font-semibold mb-1">b. Data yang Dikumpulkan Secara Otomatis</h3>
+                  <p className="text-gray-600 text-sm">
+                    Informasi perangkat (model hardware, versi OS) untuk kompatibilitas dan dukungan teknis, 
+                    serta data penggunaan (Log Data) untuk analitik dan peningkatan layanan.
+                  </p>
+                </div>
+              </div>
+            </section>
 
-        {/* --- 1. Information We Collect --- */}
-        <section>
-          <SectionTitle icon={<Info color="action" />} text="1. Information We Collect" />
-          <Typography variant="body1" paragraph>
-            To provide and improve our services, we collect several types of information from you:
-          </Typography>
-          <List>
-            <ListItem>
-              <ListItemText 
-                primary="a. Data You Provide Directly:" 
-                secondary={
-                  "User Account Information (Owner & Cashier), Your Customer Information, Transaction Data, and Stock & Expense Data."
-                }
-                primaryTypographyProps={{ fontWeight: 'bold' }}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText 
-                primary="b. Data Collected Automatically:" 
-                secondary={
-                  "Device Information (hardware model, OS version) for compatibility and technical support, and Usage Data (Log Data) for analytics and service improvement."
-                }
-                primaryTypographyProps={{ fontWeight: 'bold' }}
-              />
-            </ListItem>
-          </List>
-        </section>
+            <section>
+              <h2 className="text-xl font-semibold mb-3">2. Cara Kami Menggunakan Informasi Anda</h2>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>Menyediakan dan mengelola fungsi inti Aplikasi (memproses pesanan, mengelola pelanggan, membuat laporan)</li>
+                <li>Memfasilitasi komunikasi, seperti mengirim struk digital ke pelanggan Anda melalui WhatsApp</li>
+                <li>Menanggapi pertanyaan, masukan, atau permintaan dukungan Anda</li>
+                <li>Menganalisis data penggunaan untuk meningkatkan fungsionalitas dan pengalaman pengguna</li>
+                <li>Melindungi keamanan akun Anda dan mencegah aktivitas penipuan</li>
+              </ul>
+            </section>
 
-        {/* --- 2. How We Use Your Information --- */}
-        <section>
-          <SectionTitle icon={<Dns color="action" />} text="2. How We Use Your Information" />
-          <Typography variant="body1" paragraph>
-            We use the collected information for various purposes:
-          </Typography>
-           <List dense>
-              <ListItem>To provide and manage the Application&apos;s core functions (processing orders, managing customers, generating reports).</ListItem>
-              <ListItem>To facilitate communication, such as sending digital receipts to your customers via third-party services like WhatsApp at your command.</ListItem>
-              <ListItem>To respond to your inquiries, feedback, or requests for support.</ListItem>
-              <ListItem>To analyze usage data to identify trends, improve functionality, and enhance user experience.</ListItem>
-              <ListItem>To protect the security of your account and prevent fraudulent activities.</ListItem>
-           </List>
-        </section>
+            <section>
+              <h2 className="text-xl font-semibold mb-3">3. Berbagi dan Pengungkapan Data</h2>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                Kami sangat serius menjaga privasi data Anda. Kami tidak akan menjual atau menyewakan 
+                informasi pribadi Anda kepada pihak ketiga. Kami hanya membagikan informasi Anda dalam 
+                situasi berikut:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li><span className="font-semibold">Penyedia Layanan:</span> Kami menggunakan layanan pihak ketiga terpercaya seperti Google Firebase (Firestore, Authentication) untuk menyimpan dan mengelola data Anda secara aman.</li>
+                <li><span className="font-semibold">Pemroses Pembayaran:</span> Jika Anda menggunakan fitur pembayaran, informasi transaksi akan dibagikan kepada penyedia layanan pembayaran (misalnya Midtrans) untuk memproses pembayaran.</li>
+                <li><span className="font-semibold">Kewajiban Hukum:</span> Kami dapat mengungkapkan informasi Anda jika diwajibkan oleh hukum atau sebagai respons terhadap permintaan yang sah dari otoritas publik.</li>
+              </ul>
+            </section>
 
-        {/* --- 3. Data Sharing and Disclosure --- */}
-        <section>
-          <SectionTitle icon={<Share color="action" />} text="3. Data Sharing and Disclosure" />
-          <Typography variant="body1" paragraph>
-            We take your data privacy very seriously. We will not sell or rent your personal information to third parties. We only share your information in the following situations:
-          </Typography>
-          <List dense>
-              <ListItem><strong>Service Providers:</strong> We use reliable third-party services like Google Firebase (Firestore, Authentication) to securely store and manage your data.</ListItem>
-              <ListItem><strong>Payment Processors:</strong> If you use payment features, transaction information will be shared with payment service providers (e.g., Midtrans) to process payments. Their privacy practices are governed by their own privacy policies.</ListItem>
-              <ListItem><strong>Legal Obligations:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities.</ListItem>
-           </List>
-        </section>
+            <section>
+              <h2 className="text-xl font-semibold mb-3">4. Keamanan Data</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Keamanan data Anda adalah prioritas kami. Kami menerapkan langkah-langkah keamanan yang 
+                wajar untuk melindungi informasi Anda dari akses, perubahan, pengungkapan, atau penghancuran 
+                yang tidak sah. Data disimpan di server Firebase yang aman, dan data sensitif seperti kata 
+                sandi dienkripsi. Namun, perlu diingat bahwa tidak ada metode transmisi melalui internet 
+                atau metode penyimpanan elektronik yang 100% aman.
+              </p>
+            </section>
 
-        {/* --- 4. Data Security --- */}
-        <section>
-          <SectionTitle icon={<Security color="action" />} text="4. Data Security" />
-           <Typography variant="body1" paragraph>
-            The security of your data is our priority. We implement reasonable security measures to protect your information from unauthorized access, alteration, disclosure, or destruction. Data is stored on secure Firebase servers, and sensitive data such as passwords are encrypted. However, please remember that no method of transmission over the internet or method of electronic storage is 100% secure.
-          </Typography>
-        </section>
+            <section>
+              <h2 className="text-xl font-semibold mb-3">5. Izin Aplikasi</h2>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                Aplikasi kami mungkin meminta izin berikut pada perangkat Anda:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li><span className="font-semibold">Penyimpanan:</span> Diperlukan untuk menyimpan file ekspor, seperti laporan dalam format Excel.</li>
+                <li><span className="font-semibold">Bluetooth:</span> Diperlukan untuk menghubungkan printer thermal untuk mencetak struk.</li>
+              </ul>
+              <p className="text-gray-600 leading-relaxed mt-3">
+                Kami hanya akan menggunakan izin ini untuk fungsionalitas yang disebutkan dan tidak akan 
+                mengakses data pribadi Anda di luar cakupan fungsi-fungsi tersebut.
+              </p>
+            </section>
 
-        {/* --- 5. Application Permissions --- */}
-        <section>
-          <SectionTitle icon={<Lock color="action" />} text="5. Application Permissions" />
-          <Typography variant="body1" paragraph>
-            Our Application may request the following permissions on your device:
-          </Typography>
-           <List dense>
-              <ListItem><strong>Storage:</strong> Required to save exported files, such as reports in Excel format.</ListItem>
-              <ListItem><strong>Bluetooth:</strong> Required to connect with thermal printers for printing receipts.</ListItem>
-           </List>
-            <Typography variant="body1" paragraph>
-            We will only use these permissions for the stated functionalities and will not access your personal data outside the scope of these functions.
-          </Typography>
-        </section>
-        
-        {/* --- 6. Children's Privacy --- */}
-        <section>
-          {/* PERBAIKAN: Mengganti ' dengan &apos; */}
-          <SectionTitle icon={<ChildCare color="action" />} text="6. Children&apos;s Privacy" />
-           <Typography variant="body1" paragraph>
-            Our service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13.
-          </Typography>
-        </section>
-        
-        {/* --- 7. Changes to This Privacy Policy --- */}
-        <section>
-          <SectionTitle icon={<Update color="action" />} text="7. Changes to This Privacy Policy" />
-           <Typography variant="body1" paragraph>
-            We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.
-          </Typography>
-        </section>
+            <section className="bg-amber-50 border border-amber-200 p-6 rounded-xl">
+              <h2 className="text-xl font-semibold mb-3">6. Penggunaan Cookies dan Teknologi Iklan</h2>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                Website kami (sikasirlaundry.web.id) menggunakan cookies dan teknologi serupa untuk 
+                meningkatkan pengalaman pengguna dan menayangkan iklan. Secara khusus:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>Kami menggunakan <span className="font-semibold">Google AdSense</span> untuk menayangkan iklan di website kami. Google menggunakan cookies untuk menayangkan iklan berdasarkan kunjungan pengguna ke website kami dan website lain di internet.</li>
+                <li>Kami menggunakan <span className="font-semibold">Google Analytics</span> untuk menganalisis lalu lintas website. Google Analytics menggunakan cookies untuk mengumpulkan data tentang penggunaan website secara anonim.</li>
+                <li>Pihak ketiga, termasuk Google, menggunakan cookies, web beacon, alamat IP, atau pengenal lainnya untuk mengumpulkan informasi sebagai hasil dari penayangan iklan di website kami.</li>
+                <li>Penggunaan cookies oleh Google memungkinkan Google dan mitranya untuk menayangkan iklan kepada pengguna berdasarkan kunjungan mereka ke website kami dan/atau website lain di internet.</li>
+                <li>Pengguna dapat memilih untuk tidak menggunakan cookie personalisasi dengan mengunjungi <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Pengaturan Iklan Google</a>.</li>
+              </ul>
+              <p className="text-gray-600 leading-relaxed mt-3">
+                Untuk informasi lebih lanjut tentang bagaimana Google menggunakan data saat Anda menggunakan 
+                situs atau aplikasi mitra kami, silakan kunjungi:{" "}
+                <a 
+                  href="https://policies.google.com/technologies/partner-sites" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  Cara Google menggunakan data saat Anda menggunakan situs atau aplikasi mitra kami
+                </a>.
+              </p>
+            </section>
 
-        {/* --- 8. Contact Us --- */}
-        <section>
-          <SectionTitle icon={<ContactMail color="action" />} text="8. Contact Us" />
-          <Typography variant="body1" paragraph>
-            If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at:
-          </Typography>
-          <List dense>
-              <ListItem><strong>Email:</strong> {contactEmail}</ListItem>
-              <ListItem><strong>Website:</strong> {websiteUrl}</ListItem>
-           </List>
-        </section>
+            <section>
+              <h2 className="text-xl font-semibold mb-3">7. Privasi Anak-Anak</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Layanan kami tidak ditujukan untuk siapa pun yang berusia di bawah 13 tahun. Kami tidak 
+                secara sengaja mengumpulkan informasi identitas pribadi dari anak-anak di bawah 13 tahun. 
+                Jika kami mengetahui bahwa seorang anak di bawah 13 tahun telah memberikan informasi pribadi 
+                kepada kami, kami akan segera menghapusnya dari server kami.
+              </p>
+            </section>
 
-      </Paper>
-    </Container>
+            <section>
+              <h2 className="text-xl font-semibold mb-3">8. Perubahan Kebijakan Privasi</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Kami akan memberi tahu 
+                Anda tentang perubahan apa pun dengan memposting Kebijakan Privasi baru di halaman ini. 
+                Anda disarankan untuk meninjau Kebijakan Privasi ini secara berkala.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-3">9. Hubungi Kami</h2>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                Jika Anda memiliki pertanyaan atau saran tentang Kebijakan Privasi kami, jangan ragu 
+                untuk menghubungi kami di:
+              </p>
+              <ul className="list-none text-gray-600 space-y-1">
+                <li>Email: <a href="mailto:support@sikasirlaundry.web.id" className="text-blue-600 hover:underline">support@sikasirlaundry.web.id</a></li>
+                <li>WhatsApp: <a href="https://wa.me/6285144907717" target="_blank" className="text-blue-600 hover:underline">+62 851-4490-7717</a></li>
+                <li>Website: <a href="https://sikasirlaundry.web.id" className="text-blue-600 hover:underline">https://sikasirlaundry.web.id</a></li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </Container>
+    </div>
   );
 }
