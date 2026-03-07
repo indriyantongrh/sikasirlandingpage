@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdBannerProps {
-  slot: string;
+  slot?: string;
   format?: 'auto' | 'horizontal' | 'vertical' | 'rectangle';
   responsive?: boolean;
   className?: string;
@@ -16,38 +16,34 @@ declare global {
 }
 
 export default function AdBanner({ 
-  slot, 
+  slot = '', 
   format = 'auto', 
   responsive = true,
   className = '' 
 }: AdBannerProps) {
-  const [isAdLoaded, setIsAdLoaded] = useState(false);
+  const adRef = useRef<HTMLModElement>(null);
+  const pushed = useRef(false);
 
   useEffect(() => {
-    // Don't try to load ads with placeholder slots
-    if (slot.startsWith('YOUR_')) return;
-    
+    if (pushed.current) return;
     try {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
+      if (typeof window !== 'undefined') {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        setIsAdLoaded(true);
+        pushed.current = true;
       }
-    } catch (err) {
-      console.error('AdSense error:', err);
+    } catch {
+      // AdSense not loaded yet
     }
-  }, [slot]);
-
-  // Don't render anything if slot is a placeholder
-  if (slot.startsWith('YOUR_')) return null;
-  if (!isAdLoaded) return null;
+  }, []);
 
   return (
     <div className={`ad-container my-6 flex justify-center ${className}`}>
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-4120352110495827"
-        data-ad-slot={slot}
+        data-ad-slot={slot || undefined}
         data-ad-format={format}
         data-full-width-responsive={responsive}
       />

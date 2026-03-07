@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase, BlogPost } from "@/lib/supabase";
+import AdBanner from "@/components/AdBanner";
 
 async function getPost(slug: string): Promise<BlogPost | null> {
   const { data } = await supabase
@@ -134,7 +135,10 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
             })}
           </div>
 
-          <div className="mt-12 p-6 bg-blue-50 rounded-xl">
+          {/* Ad Banner di dalam artikel */}
+          <AdBanner format="auto" className="my-8" />
+
+          <div className="p-6 bg-blue-50 rounded-xl">
             <h3 className="font-semibold text-lg mb-2">Kelola Usaha Laundry Lebih Mudah!</h3>
             <p className="text-gray-600 mb-4">Download SIKASIR LAUNDRY sekarang dan rasakan kemudahan mengelola bisnis laundry Anda.</p>
             <a

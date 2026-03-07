@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { supabase, BlogPost } from "@/lib/supabase";
+import AdBanner from "@/components/AdBanner";
 
 const categoryMap: Record<string, { name: string; description: string; keywords: string[] }> = {
   "tips-bisnis": {
@@ -123,6 +124,9 @@ export default async function CategoryPage({ params }: { params: { category: str
           {posts.length === 0 ? (
             <p className="text-center text-gray-500">Belum ada artikel di kategori ini.</p>
           ) : (
+            <>
+            {/* Ad Banner atas */}
+            <AdBanner format="horizontal" className="mb-8" />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group">
@@ -149,6 +153,9 @@ export default async function CategoryPage({ params }: { params: { category: str
                 </Link>
               ))}
             </div>
+            {/* Ad Banner bawah */}
+            <AdBanner format="auto" className="mt-8" />
+            </>
           )}
         </div>
       </Container>

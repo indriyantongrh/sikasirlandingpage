@@ -3,6 +3,7 @@ import Container from "@/components/Container";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase, BlogPost } from "@/lib/supabase";
+import AdBanner from "@/components/AdBanner";
 
 export const metadata: Metadata = {
   title: "Blog - Tips & Panduan Usaha Laundry",
@@ -92,6 +93,9 @@ export default async function BlogPage({
             </Link>
           </div>
 
+          {/* Ad Banner atas */}
+          <AdBanner format="horizontal" className="mb-8" />
+
           {posts.length === 0 ? (
             <p className="text-center text-gray-500">Belum ada artikel.</p>
           ) : (
@@ -124,6 +128,9 @@ export default async function BlogPage({
           )}
 
           {/* Pagination */}
+          {/* Ad Banner bawah */}
+          <AdBanner format="auto" className="mt-8" />
+
           {totalPages > 1 && (
             <nav aria-label="Pagination" className="flex items-center justify-center gap-2 mt-12">
               {currentPage > 1 && (
