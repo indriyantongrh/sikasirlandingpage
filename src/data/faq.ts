@@ -1,25 +1,24 @@
 import { IFAQ } from "@/types";
-import { siteDetails } from "./siteDetails";
 
 export const faqs: IFAQ[] = [
     {
-        question: `Is ${siteDetails.siteName} secure?`,
-        answer: 'Absolutely. We use bank-level encryption to protect your data and never store your login information. Plus, our biometric authentication adds an extra layer of security.',
+        question: 'Apakah SIKASIR LAUNDRY gratis?',
+        answer: 'Ya! SIKASIR LAUNDRY menyediakan paket gratis selamanya dengan fitur dasar yang lengkap. Anda bisa mencatat transaksi, mengelola pelanggan, dan melihat laporan tanpa biaya. Untuk fitur lebih lengkap, tersedia paket premium dengan harga terjangkau.',
     },
     {
-        question: `Can I use ${siteDetails.siteName} on multiple devices?`,
-        answer: 'Absolutely! Your Finwise account syncs seamlessly across all your devices - smartphone, tablet, and computer.',
+        question: 'Bagaimana cara download SIKASIR LAUNDRY?',
+        answer: 'Cukup cari "SIKASIR LAUNDRY" di Google Play Store, lalu klik Install. Aplikasi akan siap digunakan dalam hitungan menit tanpa konfigurasi rumit.',
     },
     {
-        question: 'Can I connect all my bank accounts?',
-        answer: `Yes! ${siteDetails.siteName} supports connections with over 10,000 financial institutions worldwide. Simply log in through our secure portal to link your accounts.`
+        question: 'Apakah data saya aman?',
+        answer: 'Keamanan data adalah prioritas kami. Semua data tersimpan di cloud dengan enkripsi dan backup otomatis setiap hari. Anda tidak perlu khawatir kehilangan data meskipun HP rusak atau hilang.',
     },
     {
-        question: 'Do I need any financial expertise to use the investing features?',
-        answer: 'Not at all! Our expert-curated portfolios and educational resources make investing accessible to everyone, regardless of experience level.',
+        question: 'Bisakah digunakan untuk banyak cabang?',
+        answer: 'Paket gratis mendukung 1 outlet. Untuk mengelola banyak cabang, Anda bisa upgrade ke paket Pro yang mendukung unlimited outlet dengan satu dashboard.',
     },
     {
-        question: 'What if I need help using the app?',
-        answer: 'Our dedicated support team is available 24/7 via chat or email. Plus, we offer extensive in-app tutorials and a comprehensive knowledge base to help you make the most of Finwise.'
-    }
+        question: 'Bagaimana jika butuh bantuan?',
+        answer: 'Tim support kami siap membantu via WhatsApp di jam kerja. Anda juga bisa mengirim email ke support@sikasirlaundry.web.id untuk pertanyaan yang lebih detail.',
+    },
 ];

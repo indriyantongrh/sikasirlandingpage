@@ -5,24 +5,22 @@ import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 import Pricing from "@/components/Pricing/Pricing";
 import AdBanner from "@/components/AdBanner";
+import FAQ from "@/components/FAQ";
+import Testimonials from "@/components/Testimonials";
+import SectionTitle from "@/components/SectionTitle";
 
 export const metadata = {
   title: "Aplikasi Kasir Laundry Digital Terbaik | SIKASIR LAUNDRY",
   description: "Kelola usaha laundry lebih mudah, cepat, dan profesional. Aplikasi kasir laundry gratis dengan fitur lengkap: transaksi, pelanggan, karyawan, stok & laporan otomatis.",
   keywords: [
-    // Primary keywords
     "aplikasi kasir laundry", 
     "aplikasi kasir laundry gratis",
     "download aplikasi kasir laundry",
     "aplikasi laundry android",
-    
-    // Secondary keywords
     "kasir laundry digital", 
     "aplikasi laundry online", 
     "sikasir laundry", 
     "kasir laundry terbaik", 
-    
-    // Long tail keywords
     "aplikasi kasir laundry kiloan",
     "aplikasi nota laundry",
     "software laundry Indonesia",
@@ -39,7 +37,7 @@ export const metadata = {
     siteName: "SIKASIR LAUNDRY",
     images: [
       {
-        url: "/images/og-image.png",
+        url: "/images/hero.png",
         width: 1200,
         height: 630,
         alt: "SIKASIR LAUNDRY - Aplikasi Kasir Laundry Digital",
@@ -52,9 +50,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Kelola Laundry Lebih Cerdas dengan SIKASIR LAUNDRY",
     description: "Mulai gratis! Aplikasi kasir khusus laundry dengan fitur lengkap untuk bantu usaha makin untung.",
-    images: ["/images/og-image.png"],
+    images: ["/images/hero.png"],
   },
 };
+
 
 // JSON-LD Structured Data untuk SEO
 const jsonLd = {
@@ -90,8 +89,15 @@ const organizationJsonLd = {
   "url": "https://sikasirlaundry.web.id",
   "logo": "https://sikasirlaundry.web.id/images/logo-skl.png",
   "description": "Penyedia aplikasi kasir laundry digital terbaik untuk UMKM Indonesia",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "support@sikasirlaundry.web.id",
+    "contactType": "customer service",
+    "availableLanguage": "Indonesian"
+  },
   "sameAs": [
-    // Tambahkan social media links di sini
+    "https://www.facebook.com/Sikasirlaundry",
+    "https://www.instagram.com/sikasir.laundry"
   ]
 };
 
@@ -104,7 +110,7 @@ const faqJsonLd = {
       "name": "Apakah SIKASIR LAUNDRY gratis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ya, SIKASIR LAUNDRY menyediakan paket gratis selamanya dengan fitur dasar yang lengkap untuk memulai usaha laundry Anda."
+        "text": "Ya! SIKASIR LAUNDRY menyediakan paket gratis selamanya dengan fitur dasar yang lengkap. Anda bisa mencatat transaksi, mengelola pelanggan, dan melihat laporan tanpa biaya."
       }
     },
     {
@@ -112,15 +118,31 @@ const faqJsonLd = {
       "name": "Bagaimana cara download SIKASIR LAUNDRY?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Anda dapat mendownload SIKASIR LAUNDRY langsung dari Google Play Store secara gratis."
+        "text": "Cukup cari SIKASIR LAUNDRY di Google Play Store, lalu klik Install. Aplikasi akan siap digunakan dalam hitungan menit."
       }
     },
     {
       "@type": "Question",
-      "name": "Fitur apa saja yang tersedia di SIKASIR LAUNDRY?",
+      "name": "Apakah data saya aman?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "SIKASIR LAUNDRY menyediakan fitur lengkap termasuk pencatatan transaksi, manajemen pelanggan, pengelolaan karyawan, kontrol stok, dan laporan keuangan otomatis."
+        "text": "Keamanan data adalah prioritas kami. Semua data tersimpan di cloud dengan enkripsi dan backup otomatis setiap hari."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bisakah digunakan untuk banyak cabang?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paket gratis mendukung 1 outlet. Untuk mengelola banyak cabang, upgrade ke paket Pro yang mendukung unlimited outlet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana jika butuh bantuan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tim support kami siap membantu via WhatsApp di jam kerja. Anda juga bisa mengirim email ke support@sikasirlaundry.web.id."
       }
     }
   ]
@@ -143,18 +165,26 @@ const HomePage: React.FC = () => {
       />
       <Hero />
       <Container>
-        {/* Ad setelah Hero */}
         <AdBanner slot="YOUR_AD_SLOT_1" format="horizontal" />
         
         <Stats />
         <Benefits />
         
-        {/* Ad setelah Benefits */}
         <AdBanner slot="YOUR_AD_SLOT_2" format="auto" />
+
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-10 lg:py-20">
+          <SectionTitle>
+            <h2 className="text-center mb-4">Dipercaya Pemilik Laundry di Seluruh Indonesia</h2>
+          </SectionTitle>
+          <p className="mb-12 text-center text-foreground-accent">Dengarkan langsung dari mereka yang sudah merasakan manfaatnya</p>
+          <Testimonials />
+        </section>
         
         <Pricing />
         
-        {/* Ad sebelum CTA */}
+        <FAQ />
+        
         <AdBanner slot="YOUR_AD_SLOT_3" format="horizontal" />
         
         <CTA />

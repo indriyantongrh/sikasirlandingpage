@@ -1,23 +1,22 @@
 import { ITestimonial } from "@/types";
-import { siteDetails } from "./siteDetails";
 
 export const testimonials: ITestimonial[] = [
     {
-        name: 'John Smith',
-        role: 'CEO at Company',
-        message: `${siteDetails.siteName}'s AI-driven insights have transformed how we approach financial planning for our clients. It's an invaluable resource in the modern financial landscape.`,
+        name: 'Ibu Sari',
+        role: 'Pemilik Sari Clean Laundry',
+        message: 'Sejak pakai SIKASIR LAUNDRY, pencatatan transaksi jadi rapi dan otomatis. Dulu sering salah hitung, sekarang laporan keuangan langsung jadi tanpa repot.',
         avatar: '/images/testimonial-1.webp',
     },
     {
-        name: 'Jane Doe',
-        role: 'CTO at Startup',
-        message: `As a CTO, I'm impressed by ${siteDetails.siteName}'s robust security measures and seamless integrations. It's rare to find an app that balances user-friendliness with such advanced technology.`,
+        name: 'Pak Andi',
+        role: 'Owner Fresh Laundry Express',
+        message: 'Fitur struk WhatsApp-nya keren banget. Pelanggan saya jadi lebih percaya karena terlihat profesional. Omset naik 30% dalam 3 bulan pertama.',
         avatar: '/images/testimonial-2.webp',
     },
     {
-        name: 'Emily Johnson',
-        role: 'Product Manager',
-        message: `${siteDetails.siteName} is revolutionizing personal finance management. Its intuitive design and powerful features make it an indispensable tool for anyone serious about financial growth.`,
+        name: 'Dina Rahmawati',
+        role: 'Pengelola Laundry Kiloan Bersih',
+        message: 'Aplikasi paling simpel yang pernah saya pakai. Karyawan saya yang gaptek pun bisa langsung pakai tanpa training lama. Sangat membantu operasional harian.',
         avatar: '/images/testimonial-3.webp',
     },
 ];

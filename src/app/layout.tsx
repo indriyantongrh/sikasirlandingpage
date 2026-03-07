@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     description: siteDetails.metadata.description,
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/hero.png',
         width: 1200,
         height: 630,
         alt: `${siteDetails.siteName} - Aplikasi Kasir Laundry Digital`,
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteDetails.metadata.title,
     description: siteDetails.metadata.description,
-    images: ['/images/og-image.png'],
+    images: ['/images/hero.png'],
     creator: '@sikasirlaundry',
   },
   alternates: {
