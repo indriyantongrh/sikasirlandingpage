@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Glow lines -->
+  <line x1="60" y1="4" x2="60" y2="14" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="60" y1="106" x2="60" y2="116" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="4" y1="60" x2="14" y2="60" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="106" y1="60" x2="116" y2="60" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="18" y1="18" x2="25" y2="25" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="95" y1="95" x2="102" y2="102" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="18" y1="102" x2="25" y2="95" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="95" y1="25" x2="102" y2="18" stroke="#A8C4E0" stroke-width="4" stroke-linecap="round"/>
+  <!-- Blue circle -->
+  <circle cx="60" cy="60" r="40" fill="#5BC5F2"/>
+  <circle cx="60" cy="60" r="40" fill="url(#grad1)"/>
+  <defs>
+    <radialGradient id="grad1" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#7DD4F7"/>
+      <stop offset="100%" stop-color="#3BB5E8"/>
+    </radialGradient>
+  </defs>
+  <!-- Hair -->
+  <ellipse cx="60" cy="44" rx="18" ry="14" fill="#2C3E6B"/>
+  <ellipse cx="60" cy="38" rx="16" ry="10" fill="#1E2D52"/>
+  <!-- Face -->
+  <ellipse cx="60" cy="52" rx="16" ry="18" fill="#F5C5A3"/>
+  <!-- Ears -->
+  <ellipse cx="44" cy="54" rx="4" ry="5" fill="#F0B892"/>
+  <ellipse cx="76" cy="54" rx="4" ry="5" fill="#F0B892"/>
+  <!-- Neck -->
+  <rect x="54" y="68" width="12" height="8" rx="3" fill="#F0B892"/>
+  <!-- Shirt -->
+  <path d="M38 95 Q38 76 60 76 Q82 76 82 95" fill="#F5A623"/>
+  <path d="M48 76 Q60 84 72 76" fill="#F5A623" opacity="0.7"/>
+  <!-- Clip to circle -->
+  <clipPath id="circleClip">
+    <circle cx="60" cy="60" r="40"/>
+  </clipPath>
+  <g clip-path="url(#circleClip)">
+    <path d="M38 95 Q38 76 60 76 Q82 76 82 95 L82 100 L38 100Z" fill="#F5A623"/>
+    <path d="M48 76 Q60 84 72 76" fill="#E8941A" opacity="0.5"/>
+  </g>
+</svg>

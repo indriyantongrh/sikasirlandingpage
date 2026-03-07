@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface AdBannerProps {
   slot: string;
@@ -21,13 +21,25 @@ export default function AdBanner({
   responsive = true,
   className = '' 
 }: AdBannerProps) {
+  const [isAdLoaded, setIsAdLoaded] = useState(false);
+
   useEffect(() => {
+    // Don't try to load ads with placeholder slots
+    if (slot.startsWith('YOUR_')) return;
+    
     try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (typeof window !== 'undefined' && window.adsbygoogle) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        setIsAdLoaded(true);
+      }
     } catch (err) {
       console.error('AdSense error:', err);
     }
-  }, []);
+  }, [slot]);
+
+  // Don't render anything if slot is a placeholder
+  if (slot.startsWith('YOUR_')) return null;
+  if (!isAdLoaded) return null;
 
   return (
     <div className={`ad-container my-6 flex justify-center ${className}`}>
