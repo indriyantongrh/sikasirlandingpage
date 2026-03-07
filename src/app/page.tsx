@@ -97,7 +97,7 @@ const organizationJsonLd = {
   },
   "sameAs": [
     "https://www.facebook.com/Sikasirlaundry",
-    "https://www.instagram.com/sikasir.laundry"
+    "https://www.instagram.com/sikasirlaundry_"
   ]
 };
 

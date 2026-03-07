@@ -58,11 +58,11 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold">Instagram</h3>
                   <a 
-                    href="https://instagram.com/sikasirlaundry" 
+                    href="https://instagram.com/sikasirlaundry_" 
                     target="_blank"
                     className="text-pink-600 hover:underline"
                   >
-                    @sikasirlaundry
+                    @sikasirlaundry_
                   </a>
                   <p className="text-sm text-gray-500">Follow untuk tips & update</p>
                 </div>

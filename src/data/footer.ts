@@ -39,6 +39,6 @@ export const footerDetails: {
     email: 'support@sikasirlaundry.web.id',
     socials: {
         facebook: 'https://www.facebook.com/Sikasirlaundry',
-        instagram: 'https://www.instagram.com/sikasir.laundry',
+        instagram: 'https://www.instagram.com/sikasirlaundry_?igsh=MXdtMWxjcGhiNmp1aQ%3D%3D&utm_source=qr',
     }
 }
