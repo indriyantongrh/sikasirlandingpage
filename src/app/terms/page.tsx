@@ -134,7 +134,7 @@ export default function TermsPage() {
               </p>
               <ul className="list-none text-gray-600 mt-3 space-y-1">
                 <li>Email: support@sikasirlaundry.web.id</li>
-                <li>WhatsApp: +62 812-3456-7890</li>
+                <li>WhatsApp: +62 851-4490-7717</li>
               </ul>
             </section>
           </div>

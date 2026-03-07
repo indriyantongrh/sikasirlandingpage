@@ -29,11 +29,11 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold">WhatsApp</h3>
                   <a 
-                    href="https://wa.me/6281234567890" 
+                    href="https://wa.me/6285144907717" 
                     target="_blank"
                     className="text-green-600 hover:underline"
                   >
-                    +62 812-3456-7890
+                    +62 851-4490-7717
                   </a>
                   <p className="text-sm text-gray-500">Respon cepat di jam kerja</p>
                 </div>
