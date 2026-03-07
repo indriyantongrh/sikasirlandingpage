@@ -126,7 +126,7 @@ export default async function CategoryPage({ params }: { params: { category: str
           ) : (
             <>
             {/* Ad Banner atas */}
-            <AdBanner format="horizontal" className="mb-8" />
+            <AdBanner slot="4120352116" format="horizontal" className="mb-8" />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group">
@@ -154,7 +154,7 @@ export default async function CategoryPage({ params }: { params: { category: str
               ))}
             </div>
             {/* Ad Banner bawah */}
-            <AdBanner format="auto" className="mt-8" />
+            <AdBanner slot="4120352117" format="auto" className="mt-8" />
             </>
           )}
         </div>

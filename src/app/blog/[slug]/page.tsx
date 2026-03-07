@@ -125,6 +125,9 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
           <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
           <p className="text-gray-500 mb-8">{formatDate(post.created_at)}</p>
 
+          {/* Ad Banner atas artikel */}
+          <AdBanner slot="4120352111" format="horizontal" className="mb-6" />
+
           <div className="prose prose-lg max-w-none">
             {post.content.split("\n").map((line, i) => {
               const t = line.trim();
@@ -135,8 +138,8 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
             })}
           </div>
 
-          {/* Ad Banner di dalam artikel */}
-          <AdBanner format="auto" className="my-8" />
+          {/* Ad Banner tengah artikel */}
+          <AdBanner slot="4120352112" format="auto" className="my-8" />
 
           <div className="p-6 bg-blue-50 rounded-xl">
             <h3 className="font-semibold text-lg mb-2">Kelola Usaha Laundry Lebih Mudah!</h3>
@@ -150,6 +153,11 @@ export default async function BlogArticlePage({ params }: { params: { slug: stri
             </a>
           </div>
         </article>
+
+        {/* Ad Banner setelah CTA */}
+        <div className="max-w-3xl mx-auto mt-8">
+          <AdBanner slot="4120352113" format="horizontal" />
+        </div>
 
         {/* Artikel Terkait */}
         {relatedPosts.length > 0 && (

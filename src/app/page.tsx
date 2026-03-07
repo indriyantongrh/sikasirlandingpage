@@ -165,12 +165,12 @@ const HomePage: React.FC = () => {
       />
       <Hero />
       <Container>
-        <AdBanner slot="YOUR_AD_SLOT_1" format="horizontal" />
+        <AdBanner slot="4120352101" format="horizontal" />
         
         <Stats />
         <Benefits />
         
-        <AdBanner slot="YOUR_AD_SLOT_2" format="auto" />
+        <AdBanner slot="4120352102" format="auto" />
 
         {/* Testimonials Section */}
         <section id="testimonials" className="py-10 lg:py-20">
@@ -185,7 +185,7 @@ const HomePage: React.FC = () => {
         
         <FAQ />
         
-        <AdBanner slot="YOUR_AD_SLOT_3" format="horizontal" />
+        <AdBanner slot="4120352103" format="horizontal" />
         
         <CTA />
       </Container>

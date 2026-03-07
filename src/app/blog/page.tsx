@@ -94,7 +94,7 @@ export default async function BlogPage({
           </div>
 
           {/* Ad Banner atas */}
-          <AdBanner format="horizontal" className="mb-8" />
+          <AdBanner slot="4120352114" format="horizontal" className="mb-8" />
 
           {posts.length === 0 ? (
             <p className="text-center text-gray-500">Belum ada artikel.</p>
@@ -129,7 +129,7 @@ export default async function BlogPage({
 
           {/* Pagination */}
           {/* Ad Banner bawah */}
-          <AdBanner format="auto" className="mt-8" />
+          <AdBanner slot="4120352115" format="auto" className="mt-8" />
 
           {totalPages > 1 && (
             <nav aria-label="Pagination" className="flex items-center justify-center gap-2 mt-12">
