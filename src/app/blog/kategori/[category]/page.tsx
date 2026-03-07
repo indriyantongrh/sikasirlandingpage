@@ -5,31 +5,31 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { supabase, BlogPost } from "@/lib/supabase";
 
-const categories: Record<string, { name: string; description: string; color: string }> = {
+const categoryMap: Record<string, { name: string; description: string; keywords: string[] }> = {
   "tips-bisnis": {
     name: "Tips Bisnis",
-    description: "Kumpulan tips dan strategi untuk mengembangkan usaha laundry Anda agar lebih sukses dan menguntungkan.",
-    color: "bg-blue-100 text-blue-700",
+    description: "Kumpulan tips dan strategi bisnis laundry untuk meningkatkan omset, menarik pelanggan baru, dan mengembangkan usaha laundry Anda.",
+    keywords: ["tips bisnis laundry", "strategi usaha laundry", "cara meningkatkan omset laundry", "tips sukses bisnis laundry"],
   },
   "teknologi": {
     name: "Teknologi",
-    description: "Artikel seputar teknologi terbaru yang bisa membantu operasional dan efisiensi bisnis laundry.",
-    color: "bg-purple-100 text-purple-700",
+    description: "Artikel seputar teknologi terbaru untuk usaha laundry, termasuk aplikasi kasir, sistem POS, dan digitalisasi bisnis laundry.",
+    keywords: ["teknologi laundry", "aplikasi kasir laundry", "digitalisasi laundry", "POS laundry"],
   },
   "marketing": {
     name: "Marketing",
-    description: "Panduan pemasaran dan promosi untuk menarik lebih banyak pelanggan ke usaha laundry Anda.",
-    color: "bg-green-100 text-green-700",
+    description: "Panduan marketing dan promosi untuk usaha laundry. Pelajari cara efektif mempromosikan bisnis laundry Anda secara online dan offline.",
+    keywords: ["marketing laundry", "promosi usaha laundry", "cara promosi laundry", "strategi marketing laundry"],
   },
   "manajemen": {
     name: "Manajemen",
-    description: "Tips mengelola keuangan, karyawan, dan operasional usaha laundry secara profesional.",
-    color: "bg-orange-100 text-orange-700",
+    description: "Tips manajemen usaha laundry meliputi pengelolaan keuangan, karyawan, stok, dan operasional harian agar bisnis berjalan efisien.",
+    keywords: ["manajemen laundry", "kelola keuangan laundry", "manajemen karyawan laundry", "operasional laundry"],
   },
   "tutorial": {
     name: "Tutorial",
-    description: "Panduan langkah demi langkah menggunakan fitur-fitur SIKASIR LAUNDRY untuk bisnis Anda.",
-    color: "bg-red-100 text-red-700",
+    description: "Tutorial lengkap penggunaan aplikasi SIKASIR LAUNDRY dan panduan praktis untuk mengelola usaha laundry Anda.",
+    keywords: ["tutorial sikasir laundry", "cara pakai aplikasi laundry", "panduan kasir laundry", "tutorial aplikasi laundry"],
   },
 };
 
@@ -43,13 +43,14 @@ const categoryColors: Record<string, string> = {
 
 
 export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const cat = categories[params.category];
+  const cat = categoryMap[params.category];
   if (!cat) return { title: "Kategori Tidak Ditemukan" };
 
   const url = `https://sikasirlaundry.web.id/blog/kategori/${params.category}`;
   return {
     title: `${cat.name} - Blog Usaha Laundry`,
     description: cat.description,
+    keywords: cat.keywords,
     alternates: { canonical: url },
     openGraph: {
       title: `${cat.name} - Blog Usaha Laundry | SIKASIR LAUNDRY`,
@@ -62,21 +63,14 @@ export async function generateMetadata({ params }: { params: { category: string 
   };
 }
 
-async function getPostsByCategory(categoryName: string, page: number) {
-  const perPage = 9;
-  const offset = (page - 1) * perPage;
-  const { data, count } = await supabase
+async function getPostsByCategory(categoryName: string) {
+  const { data } = await supabase
     .from("blog_posts")
-    .select("*", { count: "exact" })
+    .select("*")
     .eq("is_published", true)
     .eq("category", categoryName)
-    .order("created_at", { ascending: false })
-    .range(offset, offset + perPage - 1);
-
-  return {
-    posts: (data as BlogPost[]) || [],
-    totalPages: Math.ceil((count || 0) / perPage),
-  };
+    .order("created_at", { ascending: false });
+  return (data as BlogPost[]) || [];
 }
 
 function formatDate(dateStr: string) {
@@ -87,18 +81,12 @@ function formatDate(dateStr: string) {
   });
 }
 
-export default async function CategoryPage({
-  params,
-  searchParams,
-}: {
-  params: { category: string };
-  searchParams: { page?: string };
-}) {
-  const cat = categories[params.category];
+export default async function CategoryPage({ params }: { params: { category: string } }) {
+  const cat = categoryMap[params.category];
   if (!cat) notFound();
 
-  const currentPage = parseInt(searchParams.page || "1");
-  const { posts, totalPages } = await getPostsByCategory(cat.name, currentPage);
+  const posts = await getPostsByCategory(cat.name);
+  const allCategories = Object.entries(categoryMap);
 
   return (
     <div className="py-20 md:py-28">
@@ -108,24 +96,23 @@ export default async function CategoryPage({
             <Link href="/blog" className="text-blue-600 hover:underline text-sm">← Kembali ke Blog</Link>
           </div>
 
-          <div className="text-center mb-12">
-            <span className={`inline-block text-sm px-3 py-1 rounded mb-4 ${cat.color}`}>{cat.name}</span>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              Artikel {cat.name} Usaha Laundry
-            </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto">{cat.description}</p>
-          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            {cat.name}
+          </h1>
+          <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+            {cat.description}
+          </p>
 
-          {/* Kategori lain */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {Object.entries(categories).map(([slug, c]) => (
+          {/* Category pills */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {allCategories.map(([slug, c]) => (
               <Link
                 key={slug}
                 href={`/blog/kategori/${slug}`}
-                className={`text-xs px-3 py-1.5 rounded-full border transition ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                   slug === params.category
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "hover:bg-gray-100"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 {c.name}
@@ -162,30 +149,6 @@ export default async function CategoryPage({
                 </Link>
               ))}
             </div>
-          )}
-
-          {totalPages > 1 && (
-            <nav aria-label="Pagination" className="flex items-center justify-center gap-2 mt-12">
-              {currentPage > 1 && (
-                <Link href={`/blog/kategori/${params.category}?page=${currentPage - 1}`} className="px-3 py-2 text-sm rounded-lg border hover:bg-gray-100 transition">
-                  ← Prev
-                </Link>
-              )}
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <Link
-                  key={page}
-                  href={`/blog/kategori/${params.category}?page=${page}`}
-                  className={`px-3 py-2 text-sm rounded-lg border transition ${page === currentPage ? "bg-blue-600 text-white border-blue-600" : "hover:bg-gray-100"}`}
-                >
-                  {page}
-                </Link>
-              ))}
-              {currentPage < totalPages && (
-                <Link href={`/blog/kategori/${params.category}?page=${currentPage + 1}`} className="px-3 py-2 text-sm rounded-lg border hover:bg-gray-100 transition">
-                  Next →
-                </Link>
-              )}
-            </nav>
           )}
         </div>
       </Container>
