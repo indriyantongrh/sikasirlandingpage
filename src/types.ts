@@ -19,10 +19,14 @@ export interface IBenefitBullet {
 export interface IPricing {
     id: string;
     name: string;
-    price: number;
-    originalPrice?:  number;
-    totalPrice:  number;
-    discount?: string;
+    price: string;
+    period?: string;
+    badge?: string;
+    description: string;
+    features: string[];
+    buttonText: string;
+    buttonLink: string;
+    highlight?: boolean;
 }
 
 export interface IFAQ {

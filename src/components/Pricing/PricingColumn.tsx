@@ -1,115 +1,84 @@
-import clsx from "clsx";
-// import { BsFillCheckCircleFill } from "react-icons/bs";
-
-// Pastikan Anda memiliki tipe data ini di file @/types atau sesuaikan path-nya
-export interface IPricing {
-  id: string;
-  name: string; // e.g., "3 Bulan"
-  price: number; // Harga bulanan (e.g., 42000)
-  originalPrice?: number; // Harga bulanan asli (e.g., 49000)
-  totalPrice: number; // Total harga (e.g., 126000)
-  discount?: string; // e.g., "Hemat 10%"
-  colorHex?: string; // e.g., "#FF5733"
-}
-
-/**
- * Helper untuk memformat angka menjadi mata uang Rupiah (Rp).
- * Didefinisikan di luar komponen agar tidak dibuat ulang pada setiap render.
- */
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
+import { IPricing } from "@/types";
 
 interface Props {
   tier: IPricing;
-  highlight?: boolean;
 }
 
-const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
-  const { name, price, originalPrice, totalPrice, colorHex ,discount } = tier;
+const PricingColumn: React.FC<Props> = ({ tier }) => {
+  const { name, price, period, badge, description, features, buttonText, buttonLink, highlight } = tier;
 
   return (
-    <div className={clsx(
-      "w-full max-w-sm mx-auto bg-white rounded-xl border border-gray-200 lg:max-w-full relative overflow-hidden transition-all duration-300",
-        { backgroundColor: colorHex }
-    )}
-  
-      style={{ borderColor: colorHex }}
+    <div
+      className={`relative flex flex-col rounded-2xl border-2 p-6 md:p-8 transition-all duration-300 ${
+        highlight
+          ? "border-blue-600 bg-blue-600 text-white shadow-xl scale-[1.02]"
+          : "border-gray-200 bg-white hover:border-blue-300 hover:shadow-lg"
+      }`}
     >
-
-      {/* Badge Diskon di Pojok */}
-      {discount && (
-        <div className={clsx(
-          "absolute top-0 right-0 py-1.5 px-4 rounded-bl-lg text-white text-xl font-bold z-10",
-        // Terapkan bg-primary jika TIDAK highlight
-            { backgroundColor: colorHex }
-        )}
-        // Gunakan 'style' untuk menerapkan colorHex dinamis ke background
-          style={ { backgroundColor: colorHex } }
-        >
-          {discount}
-        </div>
+      {badge && (
+        <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1 rounded-full ${
+          highlight ? "bg-yellow-400 text-gray-900" : "bg-blue-100 text-blue-700"
+        }`}>
+          {badge}
+        </span>
       )}
 
-      <div className="p-6 border-b border-gray-200 rounded-t-xl">
-        <h3 className={clsx(
-          "text-2xl font-semibold mb-4",
-        { color: colorHex } 
+      <h3 className={`text-xl font-bold ${highlight ? "text-white" : "text-gray-900"}`}>
+        {name}
+      </h3>
+      <p className={`mt-2 text-sm ${highlight ? "text-blue-100" : "text-gray-500"}`}>
+        {description}
+      </p>
+
+      <div className="mt-5 mb-6">
+        <span className={`text-4xl font-extrabold ${highlight ? "text-white" : "text-gray-900"}`}>
+          {price}
+        </span>
+        {period && (
+          <span className={`text-base font-medium ${highlight ? "text-blue-200" : "text-gray-500"}`}>
+            {period}
+          </span>
         )}
-        style={ { color: colorHex }}
-        >
-          {name}
-        </h3>
-
-       {/* Bagian Harga */}
-        <div className="mb-6">
-          {/* Harga Coret (Strikethrough) */}
-          {originalPrice && originalPrice > price && (
-            <p className="text-lg font-normal text-gray-500 line-through">
-              {formatCurrency(originalPrice)} /bulan
-            </p>
-          )}
-
-          {/* Harga Bulanan Utama */}
-          <p className="text-3xl md:text-5xl font-bold">
-            <span 
-              // Gunakan 'style' untuk menerapkan colorHex dinamis ke text
-              style={ { color: colorHex }}
-            >
-              {formatCurrency(price)}
-            </span>
-            <span className="text-lg font-normal text-gray-600">/bulan</span>
-          </p>
-
-          {/* Total Pembayaran */}
-          <p className="text-sm font-medium text-gray-600 mt-2">
-            *Total Pembayaran: {formatCurrency(totalPrice)}*
-          </p>
-        </div>
-
-          <a target="_blank" href="https://play.google.com/store/apps/details?id=com.sikasir.laundry.sikasirlaundry">
-       <button className={clsx(
-          "w-full  text-white  py-3 px-4 rounded-full transition-colors font-semibold",
-          {
-            "bg-primary": !highlight ,
-        
-          
-          }
-        )}
-        style={ { backgroundColor: colorHex } }
-        >
-          Pilih Paket
-        </button> 
-        </a>
       </div>
-      
+
+      <hr className={`mb-6 ${highlight ? "border-blue-400" : "border-gray-200"}`} />
+
+      <ul className="flex-1 space-y-3 mb-8" role="list">
+        {features.map((feature) => (
+          <li key={feature} className="flex items-start gap-3">
+            <svg
+              className={`mt-0.5 h-5 w-5 flex-shrink-0 ${highlight ? "text-green-300" : "text-green-500"}`}
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className={`text-sm ${highlight ? "text-white" : "text-gray-700"}`}>
+              {feature}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={buttonLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`block w-full text-center py-3 px-6 rounded-full font-semibold transition-colors ${
+          highlight
+            ? "bg-white text-blue-600 hover:bg-blue-50"
+            : "bg-blue-600 text-white hover:bg-blue-700"
+        }`}
+      >
+        {buttonText}
+      </a>
     </div>
-  )
-}
+  );
+};
 
 export default PricingColumn;
