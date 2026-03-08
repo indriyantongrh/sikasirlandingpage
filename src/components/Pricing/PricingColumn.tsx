@@ -1,53 +1,75 @@
 import { IPricing } from "@/types";
+import { pricingFeatures, playStoreLink } from "@/data/pricing";
 
 interface Props {
   tier: IPricing;
+  popular?: boolean;
 }
 
-const PricingColumn: React.FC<Props> = ({ tier }) => {
-  const { name, price, period, badge, description, features, buttonText, buttonLink, highlight } = tier;
+const formatCurrency = (amount: number) =>
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+
+const PricingColumn: React.FC<Props> = ({ tier, popular }) => {
+  const { name, price, originalPrice, totalPrice, discount, colorHex } = tier;
 
   return (
     <div
       className={`relative flex flex-col rounded-2xl border-2 p-6 md:p-8 transition-all duration-300 ${
-        highlight
-          ? "border-blue-600 bg-blue-600 text-white shadow-xl scale-[1.02]"
-          : "border-gray-200 bg-white hover:border-blue-300 hover:shadow-lg"
+        popular
+          ? "shadow-xl scale-[1.02]"
+          : "border-gray-200 bg-white hover:shadow-lg"
       }`}
+      style={{
+        borderColor: popular ? colorHex : undefined,
+        backgroundColor: popular ? `${colorHex}08` : undefined,
+      }}
     >
-      {badge && (
-        <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1 rounded-full ${
-          highlight ? "bg-yellow-400 text-gray-900" : "bg-blue-100 text-blue-700"
-        }`}>
-          {badge}
+      {/* Badge */}
+      {discount && (
+        <span
+          className="absolute -top-3 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap"
+          style={{ backgroundColor: colorHex }}
+        >
+          {discount}
         </span>
       )}
 
-      <h3 className={`text-xl font-bold ${highlight ? "text-white" : "text-gray-900"}`}>
-        {name}
-      </h3>
-      <p className={`mt-2 text-sm ${highlight ? "text-blue-100" : "text-gray-500"}`}>
-        {description}
-      </p>
+      {/* Nama paket */}
+      <h3 className="text-xl font-bold text-gray-900 mt-2">{name}</h3>
 
-      <div className="mt-5 mb-6">
-        <span className={`text-4xl font-extrabold ${highlight ? "text-white" : "text-gray-900"}`}>
-          {price}
-        </span>
-        {period && (
-          <span className={`text-base font-medium ${highlight ? "text-blue-200" : "text-gray-500"}`}>
-            {period}
-          </span>
+      {/* Harga */}
+      <div className="mt-4 mb-2">
+        {originalPrice && originalPrice > price && (
+          <p className="text-sm text-gray-400 line-through">
+            {formatCurrency(originalPrice)}/bulan
+          </p>
         )}
+        <div className="flex items-baseline gap-1">
+          <span
+            className="text-4xl font-extrabold"
+            style={{ color: colorHex }}
+          >
+            {formatCurrency(price)}
+          </span>
+          <span className="text-base text-gray-500">/bulan</span>
+        </div>
+        <p className="text-sm text-gray-500 mt-1">
+          Total: {formatCurrency(totalPrice)}
+        </p>
       </div>
 
-      <hr className={`mb-6 ${highlight ? "border-blue-400" : "border-gray-200"}`} />
-
-      <ul className="flex-1 space-y-3 mb-8" role="list">
-        {features.map((feature) => (
+      {/* Feature list */}
+      <ul className="flex-1 space-y-3 my-6" role="list">
+        {pricingFeatures.map((feature) => (
           <li key={feature} className="flex items-start gap-3">
             <svg
-              className={`mt-0.5 h-5 w-5 flex-shrink-0 ${highlight ? "text-green-300" : "text-green-500"}`}
+              className="mt-0.5 h-5 w-5 flex-shrink-0"
+              style={{ color: colorHex }}
               fill="currentColor"
               viewBox="0 0 20 20"
               aria-hidden="true"
@@ -58,24 +80,20 @@ const PricingColumn: React.FC<Props> = ({ tier }) => {
                 clipRule="evenodd"
               />
             </svg>
-            <span className={`text-sm ${highlight ? "text-white" : "text-gray-700"}`}>
-              {feature}
-            </span>
+            <span className="text-sm text-gray-700">{feature}</span>
           </li>
         ))}
       </ul>
 
+      {/* CTA Button */}
       <a
-        href={buttonLink}
+        href={playStoreLink}
         target="_blank"
         rel="noopener noreferrer"
-        className={`block w-full text-center py-3 px-6 rounded-full font-semibold transition-colors ${
-          highlight
-            ? "bg-white text-blue-600 hover:bg-blue-50"
-            : "bg-blue-600 text-white hover:bg-blue-700"
-        }`}
+        className="block w-full text-center py-3 px-6 rounded-full font-semibold text-white transition-opacity hover:opacity-90"
+        style={{ backgroundColor: colorHex }}
       >
-        {buttonText}
+        Pilih Paket
       </a>
     </div>
   );
